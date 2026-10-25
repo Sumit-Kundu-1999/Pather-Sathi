@@ -5,9 +5,27 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const fs = require('fs');
 const authenticateToken = require('../middleware/auth');
-
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 dotenv.config();
+
+
+// 1. Configure Cloudinary credentials from process.env
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// 2. Configure Cloudinary storage engine
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'pather-sathi-images', // folder name in Cloudinary
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp']
+  }
+});
 
 const imageSchema = new mongoose.Schema({
     altText: { type: String, default: 'Our Event Photo' },
@@ -20,18 +38,18 @@ const imageSchema = new mongoose.Schema({
 
 const Image = mongoose.model('Image', imageSchema);
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const dir = 'uploads/';
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-})
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         const dir = 'uploads/';
+//         if (!fs.existsSync(dir)) {
+//             fs.mkdirSync(dir, { recursive: true });
+//         }
+//         cb(null, 'uploads/');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, Date.now() + '-' + file.originalname);
+//     }
+// })
 
 const upload = multer({ storage })
 

@@ -19,6 +19,7 @@
     "@ngrx/store": "^22.0.1",
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
+    "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
@@ -26,6 +27,7 @@
     "mongodb": "^7.0.0",
     "mongoose": "^8.20.1",
     "multer": "^2.5.0",
+    "multer-storage-cloudinary": "^4.0.0",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {
