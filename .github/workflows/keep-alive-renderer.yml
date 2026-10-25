@@ -1,0 +1,16 @@
+name: Ping Render Backend
+
+on:
+  schedule:
+    # Runs every 14 minutes
+    - cron: '*/14 * * * *'
+  # Allows you to test it manually from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send keep-alive HTTP request
+        run: |
+          curl -s -f https://pather-sathi-1.onrender.com/api/health || echo "Failed to ping server"

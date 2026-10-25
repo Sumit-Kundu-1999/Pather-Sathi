@@ -18,7 +18,7 @@ export class GalleryComponent implements OnInit {
   errorMessage = '';
 
   // Replace with your actual backend API endpoint
-  private apiUrl = 'http://localhost:3000/image/getPhotos';
+  private apiUrl = 'https://pather-sathi-1.onrender.com/image/getPhotos';
 
   ngOnInit(): void {
     this.fetchImages();

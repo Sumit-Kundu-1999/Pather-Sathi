@@ -77,7 +77,7 @@ export class UploadComponent {
 
     // Replace with your actual backend upload endpoint
     this.http.post(
-      'http://localhost:3000/image/upload',
+      'https://pather-sathi-1.onrender.com/image/upload',
       formData,
       {
         headers:{

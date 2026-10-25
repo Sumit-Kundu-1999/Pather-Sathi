@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: ['https://pather-sathi.pages.dev', 'http://localhost:4200'] }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 

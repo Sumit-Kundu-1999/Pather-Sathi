@@ -15,7 +15,7 @@ interface AuthResponse {
 })
 
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth';
+  private apiUrl = 'https://pather-sathi-1.onrender.com/auth';
   http = inject(HttpClient)
   private loggedSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedSubject.asObservable();
