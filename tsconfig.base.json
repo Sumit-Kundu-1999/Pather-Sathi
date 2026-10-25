@@ -1,0 +1,37 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": false,
+    "paths": {
+      "@pather-sathi/home": ["./libs/home/src/index.ts"],
+      "@pather-sathi/header-component": [
+        "./libs/header-component/src/index.ts"
+      ],
+      "@pather-sathi/footer-component": [
+        "./libs/footer-component/src/index.ts"
+      ],
+      "@pather-sathi/config": ["./libs/shared/config/src/index.ts"],
+      "@pather-sathi/gallery": ["./libs/gallery/src/index.ts"],
+      "@pather-sathi/upload": ["./libs/upload/src/index.ts"],
+      "@pather-sathi/auth-store": ["./libs/shared/auth-store/src/index.ts"],
+      "@pather-sathi/login": ["./libs/login/src/index.ts"],
+      "@pather-sathi/auth": ["./libs/shared/auth/src/index.ts"],
+      "@pather-sathi/storage": ["./libs/shared/storage/src/index.ts"],
+      "@pather-sathi/sign-up": ["./libs/sign-up/src/index.ts"],
+      "@pather-sathi/payment-gateway": ["./libs/payment-gateway/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

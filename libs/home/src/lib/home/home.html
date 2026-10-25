@@ -1,0 +1,57 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Bringing Joy & Dignity to Every Child</h1>
+      <p>{{desciption}}</p>
+      <div class="hero-actions">
+        <button class="btn-primary" (click)="onDonateClick()">Donate Now</button>
+        <button class="btn-secondary" (click)="onVolunteerClick()">Become a Volunteer</button>
+      </div>
+    </div>
+    <!-- Placeholder for an emotional, high-quality image of the kids/team -->
+    <div class="hero-image-overlay"></div>
+  </section>
+
+  <!-- Our Fundamentals / Mission Section -->
+  <section class="fundamentals-section">
+    <div class="section-header">
+      <h2>Who We Are</h2>
+      <p>Our team is driven by a simple belief: Festivities are for everyone.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="fundamental-card" *ngFor="let item of fundamentals">
+        <div class="card-icon">{{ item.icon }}</div>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Teaser Section -->
+  <section class="gallery-preview-section">
+    <div class="gallery-preview-content">
+      <h2>See Our Impact in Action</h2>
+      <p>A picture is worth a thousand smiles. Explore our photo gallery to see the beautiful moments we've shared with the children and communities we support.</p>
+      <button class="btn-primary" routerLink="/gallery">Explore Photo Gallery</button>
+    </div>
+  </section>
+
+  <!-- Impact/Stats Section -->
+  <section class="impact-section">
+    <h2>Our Impact So Far</h2>
+    <div class="stats-container">
+      <div class="stat-box" *ngFor="let stat of impactStats">
+        <span class="stat-number">{{ stat.number }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Footer Area -->
+  <section class="cta-section">
+    <h2>Help Us Make a Difference Today</h2>
+    <p>Your contribution translates directly into a new dress and a reason to smile for a child.</p>
+    <button class="btn-primary" (click)="onDonateClick()">Make a Contribution</button>
+  </section>
+</div>

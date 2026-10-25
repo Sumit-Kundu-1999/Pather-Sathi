@@ -1,0 +1,43 @@
+<div class="gallery-section">
+  <div class="gallery-header">
+    <h2>Moments of Impact</h2>
+    <p>A glimpse into our past events, campaigns, and the smiles we've shared.</p>
+  </div>
+
+  <!-- Loading State -->
+  @if(isLoading()) {
+    <div class="status-container">
+      <div class="spinner"></div>
+      <p>Loading moments...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  <div class="status-container error" *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+    <button class="btn-retry" (click)="fetchImages()">Retry</button>
+  </div>
+
+  <!-- Empty State -->
+  @if(!isLoading() && !errorMessage && images.length === 0) {
+    <div class="status-container">
+      <p>No photos available at the moment. Check back soon!</p>
+    </div>
+  }
+
+  <!-- Image Grid -->
+   @if (!isLoading() && !errorMessage && images.length > 0) {
+     <div class="gallery-grid">
+      @for (image of images; track image._id) {
+        <div class="gallery-item">
+          <div class="image-wrapper">
+            <img [src]="'http://localhost:3000/' + image.path" [alt]="image.altText" loading="lazy">
+            <div class="image-overlay">
+              <span class="event-badge">{{ image.eventName }}</span>
+            </div>
+          </div>
+        </div>
+      }
+     </div>
+   }
+</div>

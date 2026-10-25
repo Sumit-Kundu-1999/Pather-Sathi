@@ -1,0 +1,44 @@
+<header class="fixed-header" [class.scrolled]="isScrolled">
+  <div class="header-container">
+    <!-- Brand / Logo -->
+    <a routerLink="/" class="brand-logo" title="পথের সাথী (Pather Sathi)">
+      <img src="logo.png" alt="পথের সাথী Logo" class="ngo-logo">
+      <div class="brand-text">
+        <span class="brand-name">পথের সাথী</span>
+        <span class="brand-tagline">শিক্ষা • সহায়তা • উন্নয়ন</span>
+      </div>
+    </a>
+    
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav" [class.active]="isMobileMenuOpen">
+      <ul class="nav-links">
+        <li><a routerLink="/" (click)="isMobileMenuOpen = false" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+        <li><a routerLink="/contact" (click)="isMobileMenuOpen = false" routerLinkActive="active">Contact Us</a></li>
+        <li><a routerLink="/gallery" (click)="isMobileMenuOpen = false" routerLinkActive="active">Gallery</a></li>
+      </ul>
+
+      <li class="admin-dropdown">
+        <a class="dropdown-toggle" style="cursor: pointer;">Admin Workspace</a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/admin/login" (click)="isMobileMenuOpen = false">Login</a></li>
+          <li><a routerLink="/admin/dashboard" (click)="isMobileMenuOpen = false">Dashboard</a></li>
+          <li><a routerLink="/admin/upload" (click)="isMobileMenuOpen = false">Upload Photos</a></li>
+          <li><a routerLink="/admin/campaigns" (click)="isMobileMenuOpen = false">Manage Campaigns</a></li>
+          <li><a routerLink="/admin/donors" (click)="isMobileMenuOpen = false">Donor Records</a></li>
+          <li><a routerLink="/admin/volunteers" (click)="isMobileMenuOpen = false">Volunteers</a></li>
+        </ul>
+      </li>
+
+      <div class="nav-actions">
+        <button class="btn-donate" routerLink="/donate" (click)="isMobileMenuOpen = false">Donate Now</button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Toggle navigation">
+      <span class="hamburger" [class.open]="isMobileMenuOpen"></span>
+    </button>
+  </div>
+</header>

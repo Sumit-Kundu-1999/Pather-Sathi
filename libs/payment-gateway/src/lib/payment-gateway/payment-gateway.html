@@ -1,0 +1,539 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50/40 to-slate-100 text-slate-800 antialiased p-3 sm:p-6 lg:p-8 flex flex-col justify-between">
+
+  <!-- Top Trust Header -->
+  <header class="max-w-5xl mx-auto w-full mb-6">
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-emerald-100">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center p-2 text-white shadow-md shadow-emerald-200 shrink-0 overflow-hidden">
+          <img src="logo.png" alt="NGO Logo" class="w-full h-full object-contain drop-shadow-xs" />
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-lg text-slate-900 tracking-tight">Pather Sathi</h1>
+            <!-- <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                  <svg class="w-3 h-3 mr-1 text-emerald-600 fill-current" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  Verified 12A & 80G NGO
+                </span> -->
+          </div>
+          <p class="text-xs text-slate-500">• Zero-Fee Direct UPI Gateway</p>
+        </div>
+      </div>
+
+      <!-- Trust highlights -->
+      <div class="flex items-center gap-4 text-xs font-medium text-slate-600">
+        <div
+          class="flex items-center gap-1.5 bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-full border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>100% Goes to Cause (0% Deduction)</span>
+        </div>
+        <div class="hidden md:flex items-center gap-1 text-slate-600">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span>Instant Receipt</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container Card -->
+  <main
+    class="max-w-5xl mx-auto w-full bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden my-auto">
+
+    <!-- Step Navigation Indicator -->
+    <div class="bg-slate-50/80 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-3 w-full max-w-xl mx-auto">
+
+        <!-- Step 1 pill -->
+        <div class="flex items-center gap-2 flex-1">
+          <div [class]="currentStep() >= 1 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-200 text-slate-600'"
+            class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs transition-colors">
+            1
+          </div>
+          <span [class]="currentStep() >= 1 ? 'font-semibold text-slate-800' : 'text-slate-500'"
+            class="text-xs sm:text-sm">Donation Details</span>
+        </div>
+        <div [class]="currentStep() >= 2 ? 'bg-emerald-600' : 'bg-slate-200'" class="h-0.5 flex-1 transition-colors">
+        </div>
+
+        <!-- Step 2 pill -->
+        <div class="flex items-center gap-2 flex-1 justify-center">
+          <div [class]="currentStep() >= 2 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-200 text-slate-600'"
+            class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs transition-colors">
+            2
+          </div>
+          <span [class]="currentStep() >= 2 ? 'font-semibold text-slate-800' : 'text-slate-500'"
+            class="text-xs sm:text-sm">UPI Payment</span>
+        </div>
+        <div [class]="currentStep() === 3 ? 'bg-emerald-600' : 'bg-slate-200'" class="h-0.5 flex-1 transition-colors">
+        </div>
+
+        <!-- Step 3 pill -->
+        <div class="flex items-center gap-2 justify-end">
+          <div [class]="currentStep() === 3 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-200 text-slate-600'"
+            class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs transition-colors">
+            3
+          </div>
+          <span [class]="currentStep() === 3 ? 'font-semibold text-slate-800' : 'text-slate-500'"
+            class="text-xs sm:text-sm hidden sm:inline">Receipt</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================== STEP 1: FORM & SELECTION =================== -->
+    @if (currentStep() === 1) {
+    <div class="p-6 md:p-8 lg:p-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Column: Amount & Impact selection -->
+        <div class="lg:col-span-7 space-y-6">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <span>Choose Donation Amount</span>
+              <span
+                class="text-xs font-normal text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                INR Currency
+              </span>
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">Select an impact tier or enter custom contribution amount</p>
+          </div>
+
+          <!-- Tiers Grid -->
+          <div class="grid grid-cols-2 gap-3">
+            @for (tier of donationTiers; track tier.amount) {
+            <button type="button" (click)="selectPresetAmount(tier.amount)" [class]="selectedAmount() === tier.amount 
+                        ? 'border-emerald-600 bg-emerald-50/60 ring-2 ring-emerald-600/30 text-emerald-950' 
+                        : 'border-slate-200 hover:border-emerald-300 hover:bg-slate-50 text-slate-700'"
+              class="relative p-3.5 rounded-2xl border-2 text-left transition-all duration-150 cursor-pointer flex flex-col justify-between">
+
+              @if (tier.popular) {
+              <span
+                class="absolute -top-2.5 right-3 bg-amber-500 text-white font-bold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full shadow-sm">
+                Most Chosen
+              </span>
+              }
+
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xl font-extrabold text-slate-900">₹{{ tier.amount }}</span>
+                <span class="text-lg">{{ tier.icon }}</span>
+              </div>
+              <div class="text-xs font-semibold text-slate-800">{{ tier.label }}</div>
+              <div class="text-[11px] text-slate-500 mt-0.5 leading-snug">{{ tier.impact }}</div>
+            </button>
+            }
+          </div>
+
+          <!-- Custom Amount input -->
+          <div class="mt-4">
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wide">
+              Or Enter Other Amount (INR)
+            </label>
+            <div class="relative rounded-xl shadow-sm">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                <span class="text-slate-500 font-bold text-lg">₹</span>
+              </div>
+              <input type="number" min="10" max="1000000" [value]="selectedAmount()"
+                (input)="onCustomAmountChange($event)" placeholder="Enter amount (min ₹10)"
+                class="block w-full rounded-xl border border-slate-300 pl-9 pr-4 py-3 text-lg font-bold text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none transition-all" />
+            </div>
+            @if (selectedAmount() < 10) { <p class="text-xs text-rose-500 mt-1 font-medium">Please enter at least ₹10 to
+              continue.</p>
+              }
+          </div>
+
+          <!-- Live Impact Visual Banner -->
+          <div
+            class="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-4 text-white shadow-md flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0 text-xl">
+              🌟
+            </div>
+            <div class="text-xs sm:text-sm">
+              <span class="font-bold text-green-950">Your Direct Impact: </span>
+              <span class="font-medium text-green-900">{{ dynamicImpactMessage() }}</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Donor Information Form -->
+        <div
+          class="lg:col-span-5 bg-slate-50/70 p-5 sm:p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1">Donor Details</h3>
+            <p class="text-xs text-slate-500 mb-4">Indian tax compliance & donation receipt details</p>
+
+            <form [formGroup]="donorForm" class="space-y-3.5">
+
+              <!-- Name -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  Full Legal Name <span class="text-rose-500">*</span>
+                </label>
+                <input type="text" formControlName="name" placeholder="e.g. Sumit Kundu"
+                  class="w-full text-sm rounded-lg border border-slate-300 px-3 py-2 bg-white text-slate-800 focus:ring-2 focus:ring-emerald-200 focus:border-emerald-500 focus:outline-none" />
+                @if (donorForm.get('name')?.touched && donorForm.get('name')?.invalid) {
+                <span class="text-[11px] text-rose-500">Name is required</span>
+                }
+              </div>
+
+              <!-- Phone Number -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  WhatsApp / Mobile No. <span class="text-rose-500">*</span>
+                </label>
+                <div class="flex">
+                  <span
+                    class="inline-flex items-center px-2.5 rounded-l-lg border border-r-0 border-slate-300 bg-slate-100 text-slate-600 text-xs font-medium">
+                    +91
+                  </span>
+                  <input type="tel" maxlength="10" formControlName="phone" placeholder="9876543210"
+                    class="w-full text-sm rounded-r-lg border border-slate-300 px-3 py-2 bg-white text-slate-800 focus:ring-2 focus:ring-emerald-200 focus:border-emerald-500 focus:outline-none" />
+                </div>
+                @if (donorForm.get('phone')?.touched && donorForm.get('phone')?.invalid) {
+                <span class="text-[11px] text-rose-500">Enter a valid 10-digit mobile number</span>
+                }
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">
+                  Email Address <span class="text-slate-400 font-normal">(for PDF receipt)</span>
+                </label>
+                <input type="email" formControlName="email" placeholder="pathersathi&#64;gmail.com"
+                  class="w-full text-sm rounded-lg border border-slate-300 px-3 py-2 bg-white text-slate-800 focus:ring-2 focus:ring-emerald-200 focus:border-emerald-500 focus:outline-none" />
+                @if (donorForm.get('email')?.touched && donorForm.get('email')?.invalid) {
+                <span class="text-[11px] text-rose-500">Enter a valid email address</span>
+                }
+              </div>
+
+              <!-- 80G Tax Exemption Toggle -->
+              <!-- <div class="pt-2">
+                      <label class="flex items-start gap-2.5 cursor-pointer select-none">
+                        <input 
+                          type="checkbox" 
+                          formControlName="requiresTaxReceipt"
+                          class="mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                        />
+                        <div class="text-xs">
+                          <span class="font-bold text-slate-800">Claim 50% 80G Tax Exemption</span>
+                          <p class="text-slate-500 text-[11px]">PAN is mandatory under Income Tax Dept rules</p>
+                        </div>
+                      </label>
+                    </div> -->
+
+              <!-- PAN Field (Conditional) -->
+              @if (donorForm.get('requiresTaxReceipt')?.value) {
+              <div class="bg-amber-50/70 p-3 rounded-xl border border-amber-200/70 space-y-2 transition-all">
+                <label class="block text-xs font-semibold text-amber-900">
+                  Permanent Account Number (PAN) <span class="text-rose-500">*</span>
+                </label>
+                <input type="text" maxlength="10" formControlName="pan" placeholder="ABCDE1234F"
+                  class="uppercase w-full text-sm font-mono tracking-wider rounded-lg border border-amber-300 px-3 py-2 bg-white text-slate-900 focus:ring-2 focus:ring-amber-200 focus:border-amber-500 focus:outline-none" />
+                @if (donorForm.get('pan')?.touched && donorForm.get('pan')?.invalid) {
+                <span class="text-[11px] text-rose-600 font-medium">Please enter a valid 10-character PAN number</span>
+                }
+              </div>
+              }
+
+              <!-- City & State -->
+              <div class="grid grid-cols-2 gap-2 pt-1">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">City</label>
+                  <input type="text" formControlName="city" placeholder="Duttapulia"
+                    class="w-full text-xs rounded-lg border border-slate-300 px-3 py-2 bg-white text-slate-800 focus:ring-2 focus:ring-emerald-200 focus:border-emerald-500 focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Pincode</label>
+                  <input type="text" maxlength="6" formControlName="pincode" placeholder="741504"
+                    class="w-full text-xs rounded-lg border border-slate-300 px-3 py-2 bg-white text-slate-800 focus:ring-2 focus:ring-emerald-200 focus:border-emerald-500 focus:outline-none" />
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="mt-6 pt-4 border-t border-slate-200">
+            <button type="button" (click)="goToPaymentStep()" [disabled]="selectedAmount() < 10 || donorForm.invalid"
+              class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none text-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <span>Proceed to UPI Payment (₹{{ selectedAmount() }})</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+            <p class="text-[11px] text-center text-slate-500 mt-2">No payment processing or convenience fees charged</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    }
+
+    <!-- =================== STEP 2: UPI PAYMENT SCREEN =================== -->
+    @if (currentStep() === 2) {
+    <div class="p-6 md:p-8 lg:p-10">
+      <div class="max-w-2xl mx-auto space-y-6">
+
+        <!-- Back button & Header -->
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <button type="button" (click)="currentStep.set(1)"
+            class="flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-emerald-700 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Edit Amount / Details
+          </button>
+          <div class="text-right">
+            <span class="text-xs text-slate-400">Total Donation</span>
+            <div class="text-2xl font-black text-emerald-700">₹{{ selectedAmount() }}</div>
+          </div>
+        </div>
+
+        <!-- Main UPI Container -->
+        <div
+          class="bg-gradient-to-b from-white to-emerald-50/40 rounded-3xl p-6 border-2 border-emerald-200/80 shadow-sm text-center">
+
+          <!-- Quick UPI Apps Intent Row (Essential for Mobile Donors) -->
+          <div class="mb-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 block">
+              Tap your UPI app to pay directly:
+            </span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+
+              <!-- Google Pay -->
+              <a [href]="upiIntentUrl('gpay')"
+                class="p-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-xs flex flex-col items-center justify-center gap-1.5 group transition-all">
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-base font-black text-blue-600">
+                  G</div>
+                <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-700">Google Pay</span>
+              </a>
+
+              <!-- PhonePe -->
+              <a [href]="upiIntentUrl('phonepe')"
+                class="p-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-xs flex flex-col items-center justify-center gap-1.5 group transition-all">
+                <div
+                  class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-base font-black text-purple-700">
+                  पे</div>
+                <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-700">PhonePe</span>
+              </a>
+
+              <!-- Paytm -->
+              <a [href]="upiIntentUrl('paytm')"
+                class="p-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-xs flex flex-col items-center justify-center gap-1.5 group transition-all">
+                <div
+                  class="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center text-base font-black text-sky-600">
+                  Pay</div>
+                <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-700">Paytm</span>
+              </a>
+
+              <!-- Any UPI / BHIM -->
+              <a [href]="upiIntentUrl('generic')"
+                class="p-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-xs flex flex-col items-center justify-center gap-1.5 group transition-all">
+                <div
+                  class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-base font-black text-emerald-700">
+                  UPI</div>
+                <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-700">Other UPI</span>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="relative my-4 flex items-center justify-center">
+            <div class="border-t border-slate-200 w-full"></div>
+            <span class="bg-white px-3 text-xs font-semibold text-slate-400 uppercase tracking-widest absolute">or Scan
+              QR</span>
+          </div>
+
+          <!-- Dynamic QR Code Card -->
+          <div class="flex flex-col items-center justify-center">
+            <div class="relative bg-white p-4 rounded-2xl shadow-md border border-slate-200 inline-block mb-3">
+              <img [src]="qrCodeImageUrl()" alt="UPI QR Code"
+                class="w-48 h-48 sm:w-56 sm:h-56 mx-auto object-contain rounded-lg" />
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div
+                  class="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center p-1 border border-slate-100">
+                  <span class="text-xs font-black text-emerald-700">UPI</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-600 font-medium">
+              Scan with any UPI App: <strong class="text-slate-800">GPay, PhonePe, Paytm, BHIM, Cred, Mobile
+                Banking</strong>
+            </p>
+          </div>
+
+          <!-- UPI ID Copy Bar -->
+          <div
+            class="mt-4 max-w-sm mx-auto bg-slate-100/90 rounded-xl p-2.5 flex items-center justify-between border border-slate-200">
+            <div class="text-left pl-1">
+              <div class="text-[10px] text-slate-500 font-bold uppercase">Official NGO UPI VPA</div>
+              <div class="text-xs font-mono font-bold text-slate-800 select-all">{{ ngoUpiId }}</div>
+            </div>
+            <button type="button" (click)="copyUpiId()"
+              class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-bold transition-all shadow-2xs">
+              {{ copied() ? '✓ Copied!' : 'Copy' }}
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Step Verification / UTR Input Section -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-sm shrink-0">
+              !
+            </div>
+            <div class="text-left">
+              <h4 class="text-sm font-bold text-slate-900">Already completed payment on your UPI app?</h4>
+              <p class="text-xs text-slate-500">Provide the 12-digit UPI Reference / UTR Number from your transaction
+                message</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="text" maxlength="16" [(ngModel)]="utrNumber"
+              placeholder="Enter 12-digit UTR / Ref No (e.g. 4239xxxxxxxx)"
+              class="flex-1 text-sm font-mono rounded-xl border border-slate-300 px-3.5 py-2.5 focus:ring-2 focus:ring-emerald-200 focus:border-emerald-500 focus:outline-none" />
+            <button type="button" (click)="confirmDonation()" [disabled]="isVerifying()"
+              class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+              @if (isVerifying()) {
+              <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <span>Verifying...</span>
+              } @else {
+              <span>Confirm & Get Receipt</span>
+              }
+            </button>
+          </div>
+
+          <!-- Simulation Quick Helper for Instant Demo -->
+          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+            <span>No fee charged. Direct P2M bank credit.</span>
+            <button type="button" (click)="utrNumber = '429188204912'; confirmDonation()"
+              class="text-emerald-600 hover:underline cursor-pointer">
+              ⚡ Auto-fill Demo UTR
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    }
+
+    <!-- =================== STEP 3: SUCCESS & 80G RECEIPT =================== -->
+    @if (currentStep() === 3) {
+    <div class="p-6 md:p-8 lg:p-10">
+      <div class="max-w-xl mx-auto text-center space-y-6">
+
+        <!-- Celebration Icon -->
+        <div
+          class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 shadow-inner">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+
+        <div>
+          <span
+            class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 mb-2">
+            Payment Received via UPI
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+            Thank You, {{ donorForm.get('name')?.value || 'Kind Donor' }}!
+          </h2>
+          <p class="text-sm text-slate-600 mt-2 max-w-md mx-auto">
+            Your generous contribution of <strong class="text-emerald-700">₹{{ selectedAmount() }}</strong> is
+            registered directly in our bank account without any third-party fee deductions.
+          </p>
+        </div>
+
+        <!-- Printable Receipt Card Preview -->
+        <div id="receipt-area"
+          class="bg-white border-2 border-dashed border-slate-300 rounded-2xl p-6 text-left shadow-sm space-y-4">
+          <div class="flex items-start justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="font-bold text-sm text-slate-900">Pather Sathi</h3>
+              <!-- <p class="text-[11px] text-slate-500">80G Reg: AAATS1234F / 2023-24</p> -->
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-emerald-700">DONATION RECEIPT</span>
+              <div class="text-[10px] text-slate-400">#SSF-{{ receiptId() }}</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <span class="text-slate-400 block text-[10px]">DONOR NAME</span>
+              <span class="font-bold text-slate-800">{{ donorForm.get('name')?.value }}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px]">AMOUNT PAID</span>
+              <span class="font-extrabold text-slate-900 text-sm text-emerald-700">₹{{ selectedAmount() }}.00</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px]">PAYMENT MODE</span>
+              <span class="font-medium text-slate-800">Direct UPI (0% MDR)</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px]">UPI REF / UTR</span>
+              <span class="font-mono text-slate-800">{{ utrNumber || '429188204912' }}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px]">DONOR PAN</span>
+              <span class="font-mono font-bold text-slate-800 uppercase">{{ donorForm.get('pan')?.value || 'NOT
+                PROVIDED' }}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px]">DATE & TIME</span>
+              <span class="text-slate-800">{{ todayDate }}</span>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 text-[10px] text-slate-500 leading-relaxed">
+            * Thanks For your support. A digitally signed copy is dispatched to {{ donorForm.get('email')?.value ||
+            'your registered contact' }}.
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <button type="button" (click)="printReceipt()"
+            class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            <span>Download / Print Receipt</span>
+          </button>
+          <button type="button" (click)="resetFlow()"
+            class="w-full sm:w-auto px-6 py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold rounded-xl border border-emerald-200 transition-all cursor-pointer">
+            Make Another Donation
+          </button>
+        </div>
+
+      </div>
+    </div>
+    }
+
+  </main>
+
+  <!-- Trust Footer -->
+  <!-- <footer class="max-w-5xl mx-auto w-full mt-6 text-center text-xs text-slate-500 space-y-2">
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+          <span>✓ 100% Secure National Payments Corporation of India (NPCI) UPI</span>
+          <span>✓ Direct Bank Settlement</span>
+          <span>✓ 80G Income Tax Benefits</span>
+        </div>
+        <p>© 2026 Seva Sankalp Foundation • Registered Indian Non-Profit Organization</p>
+      </footer> -->
+
+</div>

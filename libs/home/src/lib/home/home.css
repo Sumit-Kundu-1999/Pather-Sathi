@@ -1,0 +1,247 @@
+:host {
+  --primary-color: #d84315; /* Festive Orange/Red */
+  --primary-hover: #bf360c;
+  --secondary-color: #ffffff;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --bg-light: #f9f9f9;
+  --transition: all 0.3s ease;
+}
+
+.home-container {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-dark);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+              url('public/patherSathiBG.jpg') center/cover;
+  color: white;
+}
+
+.hero-content {
+  max-width: 800px;
+  z-index: 2;
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --- Buttons --- */
+button {
+  cursor: pointer;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  transition: var(--transition);
+
+  &.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    
+    &:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+
+    &:hover {
+      background-color: white;
+      color: var(--text-dark);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* --- Fundamentals Section --- */
+.fundamentals-section {
+  padding: 5rem 2rem;
+  background-color: white;
+  text-align: center;
+
+  .section-header {
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: var(--text-light);
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fundamental-card {
+  background: var(--bg-light);
+  padding: 2.5rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: var(--transition);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+}
+
+/* --- Impact Section --- */
+.impact-section {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+/* --- CTA Section --- */
+.cta-section {
+  padding: 5rem 2rem;
+  text-align: center;
+  background-color: var(--bg-light);
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}
+
+/* --- Gallery Preview Section --- */
+.gallery-preview-section {
+  padding: 0rem 2rem 6rem 2rem;
+  background-color: white; /* Contrasts with the colored Impact section */
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.gallery-preview-content {
+  max-width: 700px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 2.5rem;
+    color: var(--text-dark, #333333);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: var(--text-light, #666666);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+}

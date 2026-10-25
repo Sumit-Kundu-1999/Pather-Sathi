@@ -1,0 +1,67 @@
+/* Custom CSS to supplement Bootstrap */
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom focus style for better visibility, replacing Tailwind's ring focus */
+.custom-focus:focus {
+  outline: 0;
+  border-color: #4f46e5; /* indigo-600 */
+  box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25); /* Adjusted to Bootstrap's standard shadow size */
+}
+
+/* Custom button active state for better feedback */
+.custom-button-transition:active {
+  transform: translateY(1px) !important;
+}
+
+/* Hover underline effect for links/buttons, similar to original Tailwind utility */
+.hover-underline-effect:hover {
+  text-decoration: underline !important;
+}
+
+/* Fade-in animation for the form */
+.form-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      circle at top left,
+      rgba(79, 70, 229, 0.05) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(79, 70, 229, 0.05) 0%,
+      transparent 30%
+    );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Min-height for message area */
+.min-h-20px {
+    min-height: 20px;
+}

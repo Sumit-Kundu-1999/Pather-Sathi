@@ -1,0 +1,304 @@
+:host {
+  --primary-color: #d84315; /* Festive/Warm Theme Brand */
+  --logo-green: #0F5132;   /* Sourced from the logo's typography */
+  --text-dark: #333333;
+  --text-muted: #555555;
+  --bg-white: #ffffff;
+  --header-height: 90px;   /* Slightly increased to comfortably sit the highly detailed Bengali logo mark */
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--bg-white);
+  z-index: 1000;
+  transition: box-shadow 0.3s ease, height 0.3s ease;
+  display: flex;
+  align-items: center;
+
+  &.scrolled {
+    height: 80px; /* Compress slightly on scroll for screen estate */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand Identity Styling */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  height: 100%;
+  
+  .ngo-logo {
+    height: 64px; /* Scaled down from image_0.png to ensure crisp UI legibility */
+    width: auto;
+    object-fit: contain;
+    transition: height 0.3s ease;
+  }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .brand-name {
+    font-family: 'Hind Siliguri', 'Segoe UI', Roboto, sans-serif; /* Bengali font fallback */
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--logo-green);
+    line-height: 1.1;
+  }
+
+  .brand-tagline {
+    font-family: 'Hind Siliguri', 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-top: 0.2rem;
+  }
+}
+
+/* Responsive Shrinking for scrolled header */
+.fixed-header.scrolled .brand-logo .ngo-logo {
+  height: 52px;
+}
+
+.fixed-header.scrolled .brand-text .brand-name {
+  font-size: 1.4rem;
+}
+
+/* Navigation Menu */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+
+  a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+
+    &:hover, &.active {
+      color: var(--logo-green);
+      border-bottom-color: var(--logo-green);
+    }
+  }
+}
+
+.btn-donate {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.65rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+
+  &:hover {
+    background-color: #bf360c;
+    transform: translateY(-2px);
+  }
+}
+
+/* Hamburger toggle styling */
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-dark);
+  position: relative;
+  transition: background 0.3s;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--text-dark);
+    transition: transform 0.3s;
+  }
+
+  &::before { top: -6px; }
+  &::after { bottom: -6px; }
+
+  &.open {
+    background: transparent;
+    &::before { transform: translateY(6px) rotate(45deg); }
+    &::after { transform: translateY(-6px) rotate(-45deg); }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .brand-text {
+    display: none; /* Simplify branding on tablet/mobile viewport to keep image prominent */
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    --header-height: 70px;
+  }
+
+  .mobile-toggle {
+    display: block;
+    z-index: 1001;
+  }
+
+  .desktop-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    background-color: var(--bg-white);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 3rem;
+    transition: left 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+    &.active {
+      left: 0;
+    }
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    font-size: 1.2rem;
+    
+    a {
+      padding-bottom: 0;
+      border: none;
+    }
+  }
+
+  .nav-actions {
+    margin-top: 2rem;
+  }
+}
+
+.admin-dropdown {
+  position: relative;
+  list-style: none;
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  /* Show the dropdown menu when hovering over the parent li */
+  &:hover .dropdown-menu {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: var(--bg-white, #ffffff);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  
+  /* Animation properties */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+
+  li {
+    width: 100%;
+  }
+
+  a {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-dark, #333333);
+    border-bottom: none;
+    text-decoration: none;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.03);
+      color: var(--logo-green, #0F5132);
+    }
+  }
+}
+
+/* --- Mobile Menu Adjustments --- */
+@media (max-width: 768px) {
+  .admin-dropdown {
+    width: 100%;
+    text-align: center;
+    
+    /* Disable hover-based positioning on mobile */
+    &:hover .dropdown-menu {
+      transform: none;
+    }
+  }
+
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    background-color: transparent;
+    display: flex; /* Always show expanded in mobile menu */
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    padding-top: 1rem;
+    
+    a {
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+      color: var(--text-muted, #666666);
+    }
+  }
+}

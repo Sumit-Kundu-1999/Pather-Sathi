@@ -1,0 +1,34 @@
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- Column 1: About -->
+    <div class="footer-col">
+      <h3>{{ngoName}}</h3>
+      <p>{{description}}</p>
+    </div>
+
+    <!-- Column 2: Quick Links -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a routerLink="/about">About Us</a></li>
+        <li><a routerLink="/volunteer">Become a Volunteer</a></li>
+        <li><a routerLink="/transparency">Transparency & Reports</a></li>
+        <li><a routerLink="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 3: Contact Info -->
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <ul class="contact-info">
+        <li>{{address}}</li>
+        <li>{{contactNo}}</li>
+        <li>{{email}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {{ currentYear }} Pather Sathi. All rights reserved.</p>
+  </div>
+</footer>
