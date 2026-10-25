@@ -13,4 +13,4 @@ jobs:
     steps:
       - name: Send keep-alive HTTP request
         run: |
-          curl -s -f https://pather-sathi-1.onrender.com/api/health || echo "Failed to ping server"
+          curl -s -f https://pather-sathi-1.onrender.com/image/getPhotos || echo "Failed to ping server"
