@@ -30,7 +30,8 @@
       "@pather-sathi/auth": ["./libs/shared/auth/src/index.ts"],
       "@pather-sathi/storage": ["./libs/shared/storage/src/index.ts"],
       "@pather-sathi/sign-up": ["./libs/sign-up/src/index.ts"],
-      "@pather-sathi/payment-gateway": ["./libs/payment-gateway/src/index.ts"]
+      "@pather-sathi/payment-gateway": ["./libs/payment-gateway/src/index.ts"],
+      "@pather-sathi/contact-us": ["./libs/contact-us/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

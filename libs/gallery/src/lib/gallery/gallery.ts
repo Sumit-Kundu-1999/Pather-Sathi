@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { GalleryImage } from '@pather-sathi/config'
+import { BACKEND_URL_PREFIX, GalleryImage } from '@pather-sathi/config'
 
 @Component({
   selector: 'app-gallery',
@@ -18,7 +18,7 @@ export class GalleryComponent implements OnInit {
   errorMessage = '';
 
   // Replace with your actual backend API endpoint
-  private apiUrl = 'https://pather-sathi-1.onrender.com/image/getPhotos';
+  private apiUrl = `${BACKEND_URL_PREFIX}/image/getPhotos`;
 
   ngOnInit(): void {
     this.fetchImages();

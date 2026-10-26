@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path')
 const imgRoutes = require('./routes/image');
 const authRoutes = require('./routes/auth');
+const contactRoute = require('./routes/contact');
 
 dotenv.config();
 
@@ -26,8 +27,9 @@ const connectDb = async () => {
 
 connectDb();
 
-app.use('/image', imgRoutes)
-app.use('/auth', authRoutes)
+app.use('/image', imgRoutes);
+app.use('/auth', authRoutes);
+app.use('/api', contactRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on ${port}`));

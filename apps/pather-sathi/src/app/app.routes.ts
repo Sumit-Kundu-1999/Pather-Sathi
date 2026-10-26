@@ -37,6 +37,11 @@ export const appRoutes: Route[] = [
         path: 'donate',
         loadComponent: () => 
             import('@pather-sathi/payment-gateway').then((component) => component.PaymentGateway)
+    },
+    {
+        path: 'contact',
+        loadComponent: () => 
+            import('@pather-sathi/contact-us').then((component) => component.ContactComponent)
     }
 
 ];
