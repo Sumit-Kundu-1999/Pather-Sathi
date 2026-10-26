@@ -13,7 +13,9 @@ router.post('/contact', async (req, res) => {
 
     try {
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 465, // Use 465 or 587. Never 25 on Render.
+            secure: true, // true for 465, false for other ports
             auth: {
                 user: process.env.EMAIL_USER, // e.g., 'yourngo@gmail.com'
                 pass: process.env.EMAIL_PASS  // This MUST be an App Password, not your normal password
