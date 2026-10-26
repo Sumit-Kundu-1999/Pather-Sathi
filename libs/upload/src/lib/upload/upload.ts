@@ -2,8 +2,9 @@ import { Component, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectAuthToken } from '@pather-sathi/auth-store'
+import { selectAuthToken, authActions } from '@pather-sathi/auth-store'
 import { firstValueFrom, map, take } from 'rxjs';
+import { authService } from '@pather-sathi/auth';
 
 @Component({
   selector: 'app-upload',
@@ -15,6 +16,7 @@ import { firstValueFrom, map, take } from 'rxjs';
 export class UploadComponent {
   private http = inject(HttpClient);
   private store = inject(Store);
+  private authService = inject(AuthService)
 
   selectedFiles: File[] = [];
   eventName = '';
@@ -92,7 +94,10 @@ export class UploadComponent {
         this.resetForm();
       },
       error: (err) => {
-        console.error(err);
+        if(err.error.message === 'Invalid or Expired Token') {
+          this.authService.logout();
+          this.store.dispatch(authActions.logout());
+        }
         this.errorMessage = 'Failed to upload image. Please try again.';
         this.isUploading.set(false);
         // this.isUploading = false;
