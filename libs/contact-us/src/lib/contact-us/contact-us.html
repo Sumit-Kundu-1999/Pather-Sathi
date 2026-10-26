@@ -1,0 +1,106 @@
+<div class="contact-page">
+  <!-- Header Section -->
+  <div class="contact-header">
+    <h1>Get in Touch</h1>
+    <p>We'd love to hear from you. Whether you want to volunteer, donate, or simply learn more about Pather Sathi, drop us a message!</p>
+  </div>
+
+  <div class="contact-container">
+    <!-- Left Column: Info & Socials -->
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      <p class="subtitle">Reach out to us directly through any of the channels below.</p>
+      
+      <div class="info-item">
+        <span class="icon">📍</span>
+        <div>
+          <strong>Head Office</strong>
+          <p>Duttapulia, West Bengal, India, 741504</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span class="icon">📞</span>
+        <div>
+          <strong>Phone</strong>
+          <p>+91 7908896424</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span class="icon">✉️</span>
+        <div>
+          <strong>Email</strong>
+          <p>pathersathi&#64;gmail.com</p>
+        </div>
+      </div>
+
+      <!-- Social Media Links -->
+      <div class="social-links">
+        <h3>Connect With Us</h3>
+        <div class="social-icons">
+          <!-- Facebook Icon -->
+          <a href="https://www.facebook.com/share/19Ch69T4pc/" target="_blank" class="social-btn fb" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"></path>
+            </svg>
+            Facebook
+          </a>
+          
+          <!-- YouTube Icon -->
+          <a href="https://www.youtube.com/@pathersathi1280" target="_blank" class="social-btn yt" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M21.582 6.186a2.665 2.665 0 0 0-1.876-1.882C17.989 3.8 12 3.8 12 3.8s-5.989 0-7.706.504a2.665 2.665 0 0 0-1.876 1.882C1.905 7.91 1.905 12 1.905 12s0 4.09.513 5.814a2.665 2.665 0 0 0 1.876 1.882C6.011 20.2 12 20.2 12 20.2s5.989 0 7.706-.504a2.665 2.665 0 0 0 1.876-1.882c.513-1.724.513-5.814.513-5.814s0-4.09-.513-5.814zM9.957 15.176v-6.35l5.969 3.175-5.969 3.175z"></path>
+            </svg>
+            YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Contact Form -->
+    <div class="contact-form-wrapper">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" formControlName="name" placeholder="Your Name">
+          <span class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+            Name is required.
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" formControlName="email" placeholder="yourmail@example.com">
+          <span class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+            Please enter a valid email.
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" formControlName="subject" placeholder="How can we help?">
+          <span class="error" *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">
+            Subject is required.
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" rows="5" formControlName="message" placeholder="Write your message here..."></textarea>
+          <span class="error" *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid">
+            Message must be at least 10 characters long.
+          </span>
+        </div>
+
+        <div class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

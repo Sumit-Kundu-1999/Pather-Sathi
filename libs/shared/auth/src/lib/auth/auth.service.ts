@@ -2,7 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { authActions, AuthState } from '@pather-sathi/auth-store'
+import { authActions, AuthState } from '@pather-sathi/auth-store';
+import { BACKEND_URL_PREFIX } from '@pather-sathi/config';
 
 interface AuthResponse {
   token?: string;
@@ -15,7 +16,7 @@ interface AuthResponse {
 })
 
 export class AuthService {
-  private apiUrl = 'https://pather-sathi-1.onrender.com/auth';
+  private apiUrl = `${BACKEND_URL_PREFIX}/auth`;
   http = inject(HttpClient)
   private loggedSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedSubject.asObservable();

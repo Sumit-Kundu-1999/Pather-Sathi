@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectAuthToken, authActions } from '@pather-sathi/auth-store'
 import { firstValueFrom, map, take } from 'rxjs';
 import { AuthService } from '@pather-sathi/auth';
+import { BACKEND_URL_PREFIX } from '@pather-sathi/config';
 
 @Component({
   selector: 'app-upload',
@@ -79,7 +80,7 @@ export class UploadComponent {
 
     // Replace with your actual backend upload endpoint
     this.http.post(
-      'https://pather-sathi-1.onrender.com/image/upload',
+      `${BACKEND_URL_PREFIX}/image/upload`,
       formData,
       {
         headers:{

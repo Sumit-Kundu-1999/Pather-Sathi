@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, output, OutputEmitterRef } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, output, OutputEmitterRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,6 +14,8 @@ import { AuthValidation, AuthService } from '@pather-sathi/auth';
 })
 export class Login implements OnInit {
   readonly loginSuccess: OutputEmitterRef<boolean> = output<boolean>();
+  private cdr = inject(ChangeDetectorRef);
+  
   loginForm!: FormGroup;
 
   isLoading = false;
@@ -60,9 +62,11 @@ export class Login implements OnInit {
         next: async () => {
           await this.router.navigate(['home']);
           this.loginSuccess.emit(this.authService.isLoggedIn());
+          this.cdr.markForCheck();
         },
         error: (error) =>  {
           this.setMessages({ erroMsg: error.error.msg ?? 'Server Error' });
+          this.cdr.markForCheck();
         },
       })
 
