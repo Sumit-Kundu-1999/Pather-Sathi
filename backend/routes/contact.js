@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const dotenv = require('dotenv');
 
 dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post('/contact', async (req, res) => {
     const { name, email, subject, message } = req.body;
@@ -12,36 +14,35 @@ router.post('/contact', async (req, res) => {
     }
 
     try {
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465, // Use 465 or 587. Never 25 on Render.
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: process.env.EMAIL_USER, // e.g., 'yourngo@gmail.com'
-                pass: process.env.EMAIL_PASS  // This MUST be an App Password, not your normal password
-            }
-        });
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER, // Send it to yourself
-            // replyTo: email,             // If you hit 'Reply', it replies to the user
+        const { data, error } = await resend.emails.send({
+            // FROM MUST BE THIS EXACT STRING until you buy and verify your own custom domain
+            from: 'Pather Sathi Contact Form <onboarding@resend.dev>',
+
+            // TO is where the email is delivered (your personal email)
+            to: [process.env.EMAIL_USER],
+
+            // REPLY_TO is the email of the person who filled out the form. 
+            // When you open the email in Gmail and click "Reply", it will reply to them!
+            reply_to: email,
+
             subject: `NGO Website Contact: ${subject}`,
             text: `
-        You have received a new message from the Pather Sathi website.
-        
-        Name: ${name}
-        Email: ${email}
-        Subject: ${subject}
-        
-        Message:
-        ${message}
-      `
-        };
+                You have received a new message from the Pather Sathi website.
 
-        // 3. Send the email
-        await transporter.sendMail(mailOptions);
+                Name: ${name}
+                Email: ${email}
+                Subject: ${subject}
 
-        res.status(200).json({ message: 'Email sent successfully!' });
+                Message:
+                ${message}
+                `
+        });
+
+        if (error) {
+            return res.status(500).json({ message: 'Failed to send email. Please try again later.', error });
+        }
+
+        res.status(200).json({ message: 'Email sent successfully!', data });
     } catch (error) {
         console.error('Error sending email:', error);
         res.status(500).json({ message: 'Failed to send email. Please try again later.' });
