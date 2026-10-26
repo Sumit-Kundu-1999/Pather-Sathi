@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { selectAuthToken, authActions } from '@pather-sathi/auth-store'
 import { firstValueFrom, map, take } from 'rxjs';
-import { authService } from '@pather-sathi/auth';
+import { AuthService } from '@pather-sathi/auth';
 
 @Component({
   selector: 'app-upload',
