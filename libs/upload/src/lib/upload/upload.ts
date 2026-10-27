@@ -95,10 +95,7 @@ export class UploadComponent {
         this.resetForm();
       },
       error: (err) => {
-        if(err.error.message === 'Invalid or Expired Token') {
-          this.authService.logout();
-          this.store.dispatch(authActions.logout());
-        }
+        this.authService.logoutDueToInvalidToken(err.error.mesage);
         this.errorMessage = 'Failed to upload image. Please try again.';
         this.isUploading.set(false);
         // this.isUploading = false;

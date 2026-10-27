@@ -22,7 +22,7 @@
       <li class="admin-dropdown">
         <a class="dropdown-toggle" style="cursor: pointer;">Admin Workspace</a>
         <ul class="dropdown-menu">
-          <li><a routerLink="/admin/login" (click)="isMobileMenuOpen = false">Login</a></li>
+          <li><a (click)="onLoginClick()">{{loginLabel() === 'Login' ? 'Login' : 'Logout'}}</a></li>
           <li><a routerLink="/admin/dashboard" (click)="isMobileMenuOpen = false">Dashboard</a></li>
           <li><a routerLink="/admin/upload" (click)="isMobileMenuOpen = false">Upload Photos</a></li>
           <li><a routerLink="/admin/campaigns" (click)="isMobileMenuOpen = false">Manage Campaigns</a></li>

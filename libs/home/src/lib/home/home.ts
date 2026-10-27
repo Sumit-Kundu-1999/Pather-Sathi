@@ -46,6 +46,7 @@ export class Home {
   onVolunteerClick() {
     // Logic to route to volunteer registration
     console.log('Navigate to volunteer module');
+    this.router.navigate(['volunteer/form'])
   }
 
 

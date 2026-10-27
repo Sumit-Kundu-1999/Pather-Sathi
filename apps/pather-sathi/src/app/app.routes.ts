@@ -42,6 +42,17 @@ export const appRoutes: Route[] = [
         path: 'contact',
         loadComponent: () => 
             import('@pather-sathi/contact-us').then((component) => component.ContactComponent)
+    },
+    {
+        path: 'admin/volunteers',
+        loadComponent: () => 
+            import('@pather-sathi/volunteers-management').then((component) => component.VolunteerComponent),
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'volunteer/form',
+        loadComponent: () => 
+            import('@pather-sathi/volunteer-form').then((component) => component.VolunteerFormComponent)
     }
 
 ];

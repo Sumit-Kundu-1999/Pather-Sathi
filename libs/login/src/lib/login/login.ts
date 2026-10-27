@@ -15,14 +15,15 @@ import { AuthValidation, AuthService } from '@pather-sathi/auth';
 export class Login implements OnInit {
   readonly loginSuccess: OutputEmitterRef<boolean> = output<boolean>();
   private cdr = inject(ChangeDetectorRef);
-  
+
   loginForm!: FormGroup;
+  statusMessage: { message: string, type: 'success' | 'error' } | null = null;
 
   isLoading = false;
   isSuccess = false;
   isSignUpPopUpOpen = false;
-  statusMessage = '';
-  
+  // statusMessage = '';
+
   get userName() {
     return this.loginForm.get('username');
   }
@@ -38,42 +39,42 @@ export class Login implements OnInit {
   fb = inject(FormBuilder)
 
   constructor() {
-    if(this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['home'])
     }
   }
 
   ngOnInit(): void {
-      this.loginForm = this.fb.group({
+    this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  async onClick() {
-    const user = this.userName?.value ?? '';
-    const pass = this.password?.value ?? '';
-    if (user !== '' && pass !== '') {
-      this.setMessages({});
-      this.authService.login({
-        email: user, 
-        password: pass,
-      }).subscribe({
-        next: async () => {
-          await this.router.navigate(['home']);
-          this.loginSuccess.emit(this.authService.isLoggedIn());
-          this.cdr.markForCheck();
-        },
-        error: (error) =>  {
-          this.setMessages({ erroMsg: error.error.msg ?? 'Server Error' });
-          this.cdr.markForCheck();
-        },
-      })
+  // async onClick() {
+  //   const user = this.userName?.value ?? '';
+  //   const pass = this.password?.value ?? '';
+  //   if (user !== '' && pass !== '') {
+  //     this.statusMessage = null;
+  //     this.authService.login({
+  //       email: user,
+  //       password: pass,
+  //     }).subscribe({
+  //       next: async () => {
+  //         await this.router.navigate(['home']);
+  //         this.loginSuccess.emit(this.authService.isLoggedIn());
+  //         this.cdr.markForCheck();
+  //       },
+  //       error: (error) => {
+  //         this.setMessages({ erroMsg: error.error.msg ?? 'Server Error' });
+  //         this.cdr.markForCheck();
+  //       },
+  //     })
 
-    } else {
-      this.setMessages({ erroMsg: 'Please fill User name & Password' });
-    }
-  }
+  //   } else {
+  //     this.setMessages({ erroMsg: 'Please fill User name & Password' });
+  //   }
+  // }
 
   closeSingInPopUp() {
     this.isSignUpPopUpOpen = false;
@@ -83,40 +84,41 @@ export class Login implements OnInit {
     this.isSignUpPopUpOpen = true;
   }
 
-  private setMessages({
-    erroMsg,
-    successMsg,
-  }: {
-    erroMsg?: string;
-    successMsg?: string;
-  }) {
-    if (erroMsg) {
-      this.statusMessage = erroMsg;
-    } else if (successMsg) {
-      this.statusMessage = successMsg;
-    } else if (!erroMsg && !successMsg) {
-      this.statusMessage = '';
-    }
-  }
+  // private setMessages({
+  //   erroMsg,
+  //   successMsg,
+  // }: {
+  //   erroMsg?: string;
+  //   successMsg?: string;
+  // }) {
+  //   if (erroMsg) {
+  //     this.statusMessage = erroMsg;
+  //   } else if (successMsg) {
+  //     this.statusMessage = successMsg;
+  //   } else if (!erroMsg && !successMsg) {
+  //     this.statusMessage = '';
+  //   }
+  // }
 
   onLoginSubmit() {
     if (this.loginForm.invalid) {
-      this.setMessages({
-        erroMsg: 'Please fill out all required fields.'
-      })
+      this.statusMessage = {
+        message: "Please Fill All the input",
+        type: 'error'
+      }
       this.isSuccess = false;
       this.loginForm.markAllAsTouched(); // Show validation errors
       return;
     }
 
     this.isLoading = true;
-    this.statusMessage = '';
+    this.statusMessage = null;
 
     const { username, password } = this.loginForm.value;
 
-    try{
+    try {
       this.authService.login({
-        email: username, 
+        email: username,
         password: password,
       }).subscribe({
         next: async () => {
@@ -124,16 +126,19 @@ export class Login implements OnInit {
           await this.router.navigate(['home']);
           this.loginSuccess.emit(this.authService.isLoggedIn());
         },
-        error: (error) =>  {
+        error: (error) => {
           this.isSuccess = false;
-          this.setMessages({ erroMsg: error.error.msg ?? 'Server Error' });
+          console.log('Error => ', error);
+          this.statusMessage = { message: error.error.msg ?? 'Server Error', type: 'error' };
+          this.cdr.markForCheck();
         },
       })
     } catch {
       this.isSuccess = false;
-      this.setMessages({
-        erroMsg: 'An unexpected network error occurred.'
-      })
+      this.statusMessage = {
+        message: 'An unexpected network error occurred.',
+        type: 'error'
+      }
     } finally {
       this.isLoading = false;
     }
