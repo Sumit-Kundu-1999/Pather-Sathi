@@ -1,0 +1,63 @@
+/* NGO Theme Colors */
+:host {
+  --primary-green: #0F5132;
+  --light-green: #d1e7dd;
+  --warning-color: #ffc107;
+}
+
+.theme-text {
+  color: var(--primary-green) !important;
+}
+
+.section-title {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Pending Card Styling */
+.pending-card {
+  background-color: #fffdf5; /* Very light yellow/warning background */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1) !important;
+  }
+}
+
+/* Approved Volunteer Card Styling */
+.volunteer-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #ffffff;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.08) !important;
+  }
+}
+
+/* Circular Avatar using initials */
+.avatar-circle {
+  width: 60px;
+  height: 60px;
+  background-color: var(--light-green);
+  color: var(--primary-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 4px 6px rgba(0,0,0,.05);
+}
+
+/* Remove button hover effect */
+.remove-btn {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #dc3545; /* Bootstrap danger */
+    color: white;
+  }
+}

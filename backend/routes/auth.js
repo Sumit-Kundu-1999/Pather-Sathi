@@ -49,9 +49,7 @@ router.post('/register', async (req, res) => {
             });
         }
         const adminRow =await Configs.findOne({ admin: { $exists: true } }).lean();
-        console.log('adminRow => ', adminRow);
         const adminPassword = adminRow?  adminRow.admin : null;
-        console.log('adminPassword => ', adminPassword);
         
         if(adminPassword != admin) {
             return res.status(400).json({
@@ -87,7 +85,6 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email });
-        console.log('user => ', user.password)
         if (!user) {
             return res.status(400).json({ msg: 'Invalid Credentials' });
         }

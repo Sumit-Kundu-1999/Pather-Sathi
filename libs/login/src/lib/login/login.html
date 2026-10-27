@@ -37,9 +37,19 @@
         </div>
       </div>
 
-      <div id="messageArea" class="mb-3 small text-center min-h-20px">
-        <p *ngIf="statusMessage" [class.text-success]="isSuccess" [class.text-danger]="!isSuccess">{{ statusMessage }}
+      <div id="messageArea" class="text-center mb-3" style="min-height: 20px">
+        @if (statusMessage) {
+        @if (statusMessage.type === 'error') {
+        <p class="text-danger small">
+          {{ statusMessage.message }}
         </p>
+        }
+        @else if (statusMessage.type === 'success') {
+        <p class="text-success small">
+          {{ statusMessage.message }}
+        </p>
+        }
+        }
       </div>
 
       <button type="submit" id="loginButton"

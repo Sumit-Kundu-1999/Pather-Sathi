@@ -1,0 +1,132 @@
+<div class="container py-5">
+  <div class="page-header text-center mb-5">
+    <h2 class="theme-text">Volunteer Management</h2>
+    <p class="text-muted">Review pending applications and manage active volunteers.</p>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  } @else {
+
+  <!-- Section 1: Pending Approvals (Shows only if there are pending requests) -->
+  @if (pendingVolunteers.length > 0) {
+  <div class="pending-section mb-5">
+    <h3 class="section-title border-bottom pb-2 text-warning d-flex align-items-center">
+      <i class="bi bi-clock-history me-2"></i> Pending Approvals
+      <span class="badge bg-warning text-dark ms-3">{{ pendingVolunteers.length }}</span>
+    </h3>
+
+    <div class="row mt-4">
+      @for (volunteer of pendingVolunteers; track volunteer._id) {
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm border-warning pending-card">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-dark fw-bold mb-3">{{ volunteer.name }}</h5>
+
+            <div class="volunteer-details mb-3">
+              <p class="mb-1 small text-muted"><strong>Email:</strong> {{ volunteer.email }}</p>
+              <p class="mb-1 small text-muted"><strong>Phone:</strong> {{ volunteer.phone }}</p>
+              <p class="mb-1 small text-muted">
+                <strong>DOB:</strong> {{ volunteer.dateOfBirth | date:'mediumDate' }} ({{
+                calculateAge(volunteer.dateOfBirth) }} yrs)
+              </p>
+              <p class="mb-1 small text-muted">
+                <strong>Blood Group:</strong>
+                <span class="badge bg-danger rounded-pill">{{ volunteer.bloodGroup || 'NA' }}</span>
+              </p>
+              <p class="mb-1 small text-muted"><strong>Profession:</strong> {{ volunteer.profession || 'NA' }}</p>
+              <p class="mb-1 small text-muted"><strong>Skills:</strong> {{ volunteer.skills || 'NA' }}</p>
+              <p class="mb-1 small text-muted"><strong>Address:</strong> {{ volunteer.address || 'NA' }}</p>
+            </div>
+
+            <div class="d-flex gap-2 mt-auto">
+              <button class="btn btn-success btn-sm flex-grow-1" (click)="approveVolunteer(volunteer._id)">
+                Approve
+              </button>
+              <button class="btn btn-danger btn-sm flex-grow-1" (click)="removeVolunteer(volunteer._id)">
+                Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- Section 2: Approved Volunteers Grid -->
+  <div class="approved-section">
+    <h3 class="section-title border-bottom pb-2 theme-text">
+      Active Volunteers
+      <span class="badge bg-success ms-3">{{ approvedVolunteers.length }}</span>
+    </h3>
+
+    @if (approvedVolunteers.length === 0) {
+    <div class="alert alert-light text-center mt-4 border" role="alert">
+      No active volunteers found at the moment.
+    </div>
+    } @else {
+    <div class="row mt-4">
+      @for (volunteer of approvedVolunteers; track volunteer._id) {
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 shadow-sm border-0 volunteer-card text-center">
+          <div class="card-body d-flex flex-column align-items-center">
+            <!-- Avatar -->
+            <div class="avatar-circle mb-2">
+              {{ volunteer.name.charAt(0).toUpperCase() }}
+            </div>
+            <h5 class="card-title fw-bold mb-3">{{ volunteer.name }}</h5>
+
+            <!-- Volunteer Info List -->
+            <ul class="list-unstyled text-start small w-100 px-2 mb-3 text-muted">
+              <li class="mb-2">
+                <i class="bi bi-envelope-fill me-2 text-secondary"></i>
+                <strong>Email:</strong> {{ volunteer.email }}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone-fill me-2 text-secondary"></i>
+                <strong>Phone:</strong> {{ volunteer.phone }}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-calendar-event-fill me-2 text-secondary"></i>
+                <strong>DOB:</strong> {{ volunteer.dateOfBirth | date:'mediumDate' }} ({{
+                calculateAge(volunteer.dateOfBirth) }} yrs)
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-droplet-fill me-2 text-danger"></i>
+                <strong>Blood Group:</strong> {{ volunteer.bloodGroup || 'NA' }}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-briefcase-fill me-2 text-secondary"></i>
+                <strong>Profession:</strong> {{ volunteer.profession || 'NA' }}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-star-fill me-2 text-warning"></i>
+                <strong>Skills:</strong> {{ volunteer.skills || 'NA' }}
+              </li>
+              <li class="mb-2 d-flex">
+                <i class="bi bi-geo-alt-fill me-2 text-secondary mt-1"></i>
+                <span><strong>Address:</strong> {{ volunteer.address || 'NA' }}</span>
+              </li>
+            </ul>
+
+            <!-- Admin Remove Button -->
+            <button class="btn btn-outline-danger btn-sm mt-auto w-100 remove-btn"
+              (click)="removeVolunteer(volunteer._id)">
+              Remove Volunteer
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+  }
+</div>

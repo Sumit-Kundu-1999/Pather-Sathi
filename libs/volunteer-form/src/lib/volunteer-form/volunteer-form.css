@@ -1,0 +1,63 @@
+:host {
+  --primary-green: #0F5132;
+  --primary-hover: #0c4228;
+  --bg-light: #f8fafc;
+}
+
+.theme-text {
+  color: var(--primary-green);
+}
+
+/* Card Styling */
+.volunteer-form-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Section Titles inside the form */
+.form-section-title {
+  color: var(--primary-green);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Input Form Controls */
+.form-control, .form-select {
+  background-color: var(--bg-light);
+  border: 1px solid #dee2e6;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    background-color: #ffffff;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.25rem rgba(15, 81, 50, 0.15);
+  }
+}
+
+/* Custom Theme Button */
+.btn-theme {
+  background-color: var(--primary-green);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1.1rem;
+
+  &:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(15, 81, 50, 0.2);
+  }
+
+  &:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+}

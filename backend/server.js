@@ -2,10 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const path = require('path')
+const path = require('path');
+
 const imgRoutes = require('./routes/image');
 const authRoutes = require('./routes/auth');
 const contactRoute = require('./routes/contact');
+const volunteerRoute = require('./routes/volunteers');
 
 dotenv.config();
 
@@ -30,6 +32,7 @@ connectDb();
 app.use('/image', imgRoutes);
 app.use('/auth', authRoutes);
 app.use('/api', contactRoute);
+app.use('/volunteers', volunteerRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on ${port}`));
