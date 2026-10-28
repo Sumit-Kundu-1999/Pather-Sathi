@@ -8,6 +8,7 @@ const imgRoutes = require('./routes/image');
 const authRoutes = require('./routes/auth');
 const contactRoute = require('./routes/contact');
 const volunteerRoute = require('./routes/volunteers');
+const donorRoutes = require('./routes/donor');
 
 dotenv.config();
 
@@ -19,10 +20,11 @@ app.use('/uploads', express.static('uploads'));
 
 const connectDb = async () => {
     try {
+        console.log("Connecting DB");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB connected")
     } catch (err) {
-        console.error(err.message);
+        console.log(err);
         process.exit(1);
     }
 }
@@ -33,6 +35,7 @@ app.use('/image', imgRoutes);
 app.use('/auth', authRoutes);
 app.use('/api', contactRoute);
 app.use('/volunteers', volunteerRoute);
+app.use('/donors', donorRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on ${port}`));

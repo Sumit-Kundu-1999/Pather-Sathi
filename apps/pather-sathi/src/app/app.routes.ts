@@ -53,6 +53,12 @@ export const appRoutes: Route[] = [
         path: 'volunteer/form',
         loadComponent: () => 
             import('@pather-sathi/volunteer-form').then((component) => component.VolunteerFormComponent)
+    }, 
+    {
+        path: 'admin/donor-record',
+        loadComponent: () => 
+            import('@pather-sathi/donor-records').then((component) => component.DonorRecordComponent),
+        canActivate: [loginGuard]
     }
 
 ];
