@@ -26,7 +26,7 @@ router.get('/info', authenticateToken, async (req, res) => {
         return res.status(200).json({ volunteers });
     } catch (error) {
         console.log('Fetch volunteers record ', error);
-        res.status(500).json({ message: 'Np Volunteers record found' });
+        res.status(500).json({ message: 'No Volunteers record found' });
     }
 });
 
