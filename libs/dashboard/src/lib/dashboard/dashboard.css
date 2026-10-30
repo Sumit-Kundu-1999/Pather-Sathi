@@ -1,0 +1,117 @@
+:host {
+  --primary-green: #0F5132;
+  --bg-light: #f8fafc;
+}
+
+.theme-text {
+  color: var(--primary-green);
+}
+
+/* Metric Cards */
+.icon-box {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.metric-card {
+  transition: transform 0.2s;
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Chat UI Styles */
+.chat-card {
+  height: 600px; /* Fixed height for dashboard layout */
+}
+
+.chat-window {
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 10px;
+  }
+}
+
+.agent-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agent-sm-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.max-w-75 {
+  max-width: 85%;
+}
+
+.user-bubble {
+  border-bottom-right-radius: 4px !important;
+}
+
+.agent-bubble {
+  border-bottom-left-radius: 4px !important;
+}
+
+.rounded-pill-start {
+  border-top-left-radius: 50rem;
+  border-bottom-left-radius: 50rem;
+}
+
+.rounded-pill-end {
+  border-top-right-radius: 50rem;
+  border-bottom-right-radius: 50rem;
+}
+
+/* Typing Animation */
+.typing-dot {
+  animation: typing 1.4s infinite ease-in-out both;
+  font-size: 1.5rem;
+  line-height: 0.5;
+  &:nth-child(1) { animation-delay: -0.32s; }
+  &:nth-child(2) { animation-delay: -0.16s; }
+}
+
+@keyframes typing {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+/* AI Submit Button Magic Glow */
+.ai-submit-btn {
+  transition: all 0.3s ease;
+}
+
+.ai-submit-btn:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-green), #20c997);
+  border-color: var(--primary-green);
+  box-shadow: 0 0 12px rgba(32, 201, 151, 0.4) !important;
+}
+
+/* Make the SVG stars pulse when active */
+.ai-submit-btn:not(:disabled) .ai-icon {
+  animation: pulse-star 2s infinite ease-in-out;
+}
+
+@keyframes pulse-star {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.9; }
+}

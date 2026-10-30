@@ -1,3 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@media print {
+  /* Hide the header and footer completely */
+  app-header, 
+  app-footer {
+    display: none !important;
+  }
+
+  /* Reset the main padding so the receipt starts at the very top of the paper */
+  main {
+    padding-top: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Force the background to be white to save printer ink */
+  body {
+    background-color: #fff !important;
+  }
+}

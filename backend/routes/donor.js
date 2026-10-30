@@ -19,6 +19,7 @@ const Donors = mongoose.model('Donor', donorSchema);
 
 router.get('/records', async(req, res) => {
     try {
+        console.log("Call from AI")
         const donors = await Donors.find({});
         return res.status(200).json({ donors });
     } catch (error) {

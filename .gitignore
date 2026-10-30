@@ -7,6 +7,10 @@ out-tsc
 
 # dependencies
 node_modules
+backend/.venv
+backend/__pycache__
+backend/uv.lock
+backend/src
 
 # IDEs and editors
 /.idea

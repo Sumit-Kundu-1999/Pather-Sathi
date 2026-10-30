@@ -59,6 +59,11 @@ export const appRoutes: Route[] = [
         loadComponent: () => 
             import('@pather-sathi/donor-records').then((component) => component.DonorRecordComponent),
         canActivate: [loginGuard]
+    },{
+        path: 'admin/dashboard',
+        loadComponent: () => 
+            import('@pather-sathi/dashboard').then((component) => component.DashboardComponent),
+        canActivate: [loginGuard]
     }
 
 ];
