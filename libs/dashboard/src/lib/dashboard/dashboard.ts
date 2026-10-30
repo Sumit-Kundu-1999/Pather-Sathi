@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
   private getVolunteerPath = `${BACKEND_URL_PREFIX}/volunteers/info`;
   private donarRecordPath = `${BACKEND_URL_PREFIX}/donors/records`;
-  private healthDbPath = `${BACKEND_URL_PREFIX}//health/db`;
+  private healthDbPath = `${BACKEND_URL_PREFIX}/health/db`;
   private healthAgentPath = `${BACKEND_URL_PREFIX}/health/agent`;
   private healthResendPath = `${BACKEND_URL_PREFIX}/health/resend`
   private aiQueryPath = `${BACKEND_URL_PREFIX}/ai/ai-query`
