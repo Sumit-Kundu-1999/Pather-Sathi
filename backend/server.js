@@ -9,6 +9,8 @@ const authRoutes = require('./routes/auth');
 const contactRoute = require('./routes/contact');
 const volunteerRoute = require('./routes/volunteers');
 const donorRoutes = require('./routes/donor');
+const aiQuery = require('./routes/ai-agent');
+const healthStatus = require('./routes/health-check')
 
 dotenv.config();
 
@@ -36,6 +38,8 @@ app.use('/auth', authRoutes);
 app.use('/api', contactRoute);
 app.use('/volunteers', volunteerRoute);
 app.use('/donors', donorRoutes);
+app.use('/ai', aiQuery);
+app.use('/health', healthStatus);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on ${port}`));

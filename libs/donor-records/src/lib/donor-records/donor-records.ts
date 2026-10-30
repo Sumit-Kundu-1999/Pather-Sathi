@@ -18,7 +18,7 @@ export interface Donor {
   __v?: number;
 }
 
-interface DonorRecord {
+export interface DonorRecord {
   donors: Donor[];
 }
 

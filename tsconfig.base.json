@@ -36,7 +36,8 @@
         "./libs/volunteers-management/src/index.ts"
       ],
       "@pather-sathi/volunteer-form": ["./libs/volunteer-form/src/index.ts"],
-      "@pather-sathi/donor-records": ["./libs/donor-records/src/index.ts"]
+      "@pather-sathi/donor-records": ["./libs/donor-records/src/index.ts"],
+      "@pather-sathi/dashboard": ["./libs/dashboard/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
