@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
+const AI_AGENT_URL = process.env.AI_AGENT_URL || 'http://localhost:8000';
+
 router.get('/db', async (req, res) => {
     try {
         // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
@@ -18,7 +20,7 @@ router.get('/db', async (req, res) => {
 });
 
 router.get('/agent', async (req, res) => {
-    const response = await fetch('http://localhost:8000/health');
+    const response = await fetch(`${AI_AGENT_URL}/health`);
     try {
         if (response.ok) {
             const data = await response.json();
