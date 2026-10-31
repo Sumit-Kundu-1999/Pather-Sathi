@@ -5,6 +5,7 @@ from langchain.tools import tool
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
+from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable
 import langchain
 import requests
 
@@ -56,20 +57,34 @@ If the user asks a question NOT related to donors, reply EXACTLY with:
 "I am a specialized assistant for donor details. This is not the correct place for your question."
 """
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini-3.8-flash", 
+# Configure Models with High Free-Tier Daily Quotas:
+# - gemini-1.5-flash: 1,500 requests/day, 15 RPM
+# - gemini-3.5-flash-lite: 500 requests/day, 15 RPM
+primary_llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash", 
     temperature=0,
-    max_retries=2,
+    max_retries=1,
 )
 
+fallback_1 = ChatGoogleGenerativeAI(
+    model="gemini-3.5-flash-lite", 
+    temperature=0,
+    max_retries=1,
+)
+
+# Chain models with automatic failover
+llm_with_fallbacks = primary_llm.with_fallbacks([fallback_1])
+
+# Initialize the agent ONCE at startup (avoids recompiling graph on every request)
 agents = create_react_agent(
-    model=llm,
+    model=llm_with_fallbacks,
     tools=[fetch_donar],
     prompt=system_instructions
 )
 
 @app.post("/ask-agent")
 def ask_agent(query: Query):
+    try:
         print("AI agent ready to invoke")
         response = agents.invoke({"messages": [HumanMessage(content=query.message)]})
         message = response["messages"][-1]
@@ -79,6 +94,14 @@ def ask_agent(query: Query):
         elif isinstance(content, list):
             return {"answer": content}
         return {"answer": [{"type": "text", "text": str(content)}]}
+    except Exception as e:
+        print(f"All models in fallback cascade failed or rate-limited: {e}")
+        return {
+            "answer": [{
+                "type": "text", 
+                "text": "All AI models are currently experiencing high traffic. Please try again later."
+            }]
+        }
 
 @app.get("/health")
 async def health_check():
