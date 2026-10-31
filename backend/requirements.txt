@@ -5,3 +5,4 @@ langchain-google-genai
 fastapi
 uvicorn[standard]
 requests
+google-generativeai

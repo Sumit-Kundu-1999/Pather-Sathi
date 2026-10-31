@@ -14,9 +14,12 @@ router.post('/ai-query', async(req, res) => {
         })
 
         const data = await pythonResponse.json();
-        res.status(200).send({ reply: data.answer });
+        const reply = Array.isArray(data.answer)
+            ? data.answer
+            : [{ type: 'text', text: typeof data.answer === 'string' ? data.answer : JSON.stringify(data.answer) }];
+        res.status(200).send({ reply });
     } catch (error) {
-        res.status(503).json({ error: 'AI Agent is currently unavailable' });
+        res.status(503).json({ error: 'The AI is currently experiencing high demand. Please try again in 30 seconds.' });
     }
 })
 

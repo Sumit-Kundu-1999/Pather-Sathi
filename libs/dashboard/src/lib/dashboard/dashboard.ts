@@ -161,7 +161,7 @@ export class DashboardComponent implements OnInit {
           this.isAgentTyping = false;
           this.chatMessages.push({
             sender: 'agent',
-            text: 'Connection error. The AI agent is currently offline.',
+            text: 'The AI is currently experiencing high demand. Please try again later.',
             timestamp: new Date()
           });
           this.cdr.markForCheck();
