@@ -41,7 +41,7 @@ If the user asks a question NOT related to donors, reply EXACTLY with:
 """
 
 model = init_chat_model(
-    model="google_genai:gemini-3.5-flash",
+    model="google_genai:gemini-1.5-flash",
     max_retries=2,  # Stop after 2 retries if quota/rate limit is hit
 )
 
