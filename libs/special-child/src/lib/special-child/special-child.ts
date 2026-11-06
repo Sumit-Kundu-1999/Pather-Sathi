@@ -17,7 +17,7 @@ export class SpecialChild {
   private cdr = inject(ChangeDetectorRef);
 
   slideForm = this.fb.group({
-    description: ['', [Validators.required, Validators.maxLength(150)]],
+    description: ['', [Validators.required,]],
     diseaseName: ['', Validators.required],
     phoneNumber: ['', Validators.required]
   });
