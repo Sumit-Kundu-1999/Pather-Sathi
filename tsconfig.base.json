@@ -37,7 +37,10 @@
       ],
       "@pather-sathi/volunteer-form": ["./libs/volunteer-form/src/index.ts"],
       "@pather-sathi/donor-records": ["./libs/donor-records/src/index.ts"],
-      "@pather-sathi/dashboard": ["./libs/dashboard/src/index.ts"]
+      "@pather-sathi/dashboard": ["./libs/dashboard/src/index.ts"],
+      "@pather-sathi/carousel": ["./libs/shared/carousel/src/index.ts"],
+      "@pather-sathi/special-child": ["./libs/special-child/src/index.ts"],
+      "@pather-sathi/special-care": ["./libs/special-care/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

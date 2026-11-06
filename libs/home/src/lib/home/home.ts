@@ -1,16 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NGO_INFO } from '@pather-sathi/config';
 import { RouterModule, Router } from '@angular/router';
+import { CarouselService } from '@pather-sathi/carousel'
+import { HomeCarouselComponent } from '@pather-sathi/carousel'
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, HomeCarouselComponent],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
-  private router = inject(Router)
+export class Home implements OnInit {
+  private router = inject(Router);
+  carouselService = inject(CarouselService);
   // Data for the impact section to keep the template clean
   impactStats = [
     { number: '5,000+', label: 'Smiles Delivered' },
@@ -38,6 +41,10 @@ export class Home {
       description: 'Beyond Durga Puja, we conduct year-round social programs focusing on health, education, and holistic growth.'
     }
   ];
+
+  ngOnInit() {
+    this.carouselService.fetchSlides();
+  }
 
   onDonateClick() {
     this.router.navigate(['donate'])

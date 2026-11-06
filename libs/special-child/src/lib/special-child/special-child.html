@@ -1,0 +1,62 @@
+<section class="admin-upload-section py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4">
+              <div class="card-header bg-success text-white p-4 rounded-top-4">
+                <h3 class="mb-0 fw-bold">Add Special Care Initiative</h3>
+                <p class="mb-0 text-white-50">Upload an image and details for the home page carousel.</p>
+              </div>
+              <div class="card-body p-5">
+                <form [formGroup]="slideForm" (ngSubmit)="onSubmit()">
+                  
+                  <!-- File Upload Section -->
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold">Initiative Image (Max 2MB)</label>
+                    <div class="upload-area p-4 border border-2 border-dashed rounded-3 text-center bg-light" 
+                         [class.border-danger]="fileError">
+                      <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" #fileInput>
+                      @if (fileError) {
+                        <div class="text-danger mt-2 fw-bold"><small>{{ fileError }}</small></div>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold">Disease Name</label>
+                    <textarea class="form-control bg-light" formControlName="diseaseName" rows="3" 
+                              placeholder="Write the disease name..."></textarea>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold">Care Description</label>
+                    <textarea class="form-control bg-light" formControlName="description" rows="3" 
+                              placeholder="Describe the initiative..."></textarea>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold">Contact Phone Number</label>
+                    <input type="text" class="form-control bg-light" formControlName="phoneNumber" 
+                           placeholder="+91 XXXXX XXXXX">
+                  </div>
+
+                  <button type="submit" class="btn btn-success btn-lg w-100 fw-bold shadow-sm" 
+                          [disabled]="slideForm.invalid || !selectedFile || fileError !== ''">
+                    Publish to Home Page
+                  </button>
+                  @if (successMessage) {
+                    <div class="alert alert-success mt-3" role="alert">
+                      <i class="bi bi-check-circle-fill me-2"></i> {{ successMessage }}
+                    </div>
+                  }
+                  @if (errorMessage) {
+                    <div class="alert alert-danger mt-2 py-2"><i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
+                    </div>
+                  }
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

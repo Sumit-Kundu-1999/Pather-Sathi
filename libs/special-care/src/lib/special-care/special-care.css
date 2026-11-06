@@ -1,0 +1,29 @@
+.description-container {
+    max-height: 400px;
+    /* Adjust this height limit as needed */
+    overflow-y: auto;
+    /* Adds scrollbar ONLY when limit is reached */
+    padding-right: 15px;
+    /* Adds breathing room so text doesn't touch the scrollbar */
+}
+
+/* Custom Webkit Scrollbar Styling for a polished look */
+.description-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.description-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+.description-container::-webkit-scrollbar-thumb {
+    background: #198754;
+    /* Matches Bootstrap's text-success green */
+    border-radius: 8px;
+}
+
+.description-container::-webkit-scrollbar-thumb:hover {
+    background: #146c43;
+    /* Slightly darker green on hover */
+}

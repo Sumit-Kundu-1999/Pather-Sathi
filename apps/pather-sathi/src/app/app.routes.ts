@@ -2,6 +2,11 @@ import { Route } from '@angular/router';
 import { loginGuard } from '@pather-sathi/login'
 
 export const appRoutes: Route[] = [
+    {   
+        path: 'special-care/:id', 
+        loadComponent: () =>
+            import('@pather-sathi/special-care').then((component) => component.SpecialCare) 
+    },
     {
         path: '',
         pathMatch: 'full',
@@ -59,10 +64,17 @@ export const appRoutes: Route[] = [
         loadComponent: () => 
             import('@pather-sathi/donor-records').then((component) => component.DonorRecordComponent),
         canActivate: [loginGuard]
-    },{
+    },
+    {
         path: 'admin/dashboard',
         loadComponent: () => 
             import('@pather-sathi/dashboard').then((component) => component.DashboardComponent),
+        canActivate: [loginGuard]
+    }, 
+    {
+        path: 'admin/special-child',
+        loadComponent: () => 
+            import('@pather-sathi/special-child').then((component) => component.SpecialChild),
         canActivate: [loginGuard]
     }
 

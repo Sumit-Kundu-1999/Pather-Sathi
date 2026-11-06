@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { authActions, AuthState } from '@pather-sathi/auth-store';
@@ -19,6 +20,7 @@ export class AuthService {
   private apiUrl = `${BACKEND_URL_PREFIX}/auth`;
   http = inject(HttpClient)
   private loggedSubject = new BehaviorSubject<boolean>(false);
+  private router = inject(Router);
   isLoggedIn$ = this.loggedSubject.asObservable();
 
   constructor(private store: Store<AuthState>) { }
@@ -45,9 +47,10 @@ export class AuthService {
   }
 
   logoutDueToInvalidToken(errMsg: string) {
-    if (errMsg === 'Invalid or Expired Token') {
+    if (errMsg === 'Invalid or Expired Token' || errMsg === 'Access Denied: No Token Provided') {
       this.logout();
       this.store.dispatch(authActions.logout());
+      this.router.navigate(['admin/login'])
     }
   }
 

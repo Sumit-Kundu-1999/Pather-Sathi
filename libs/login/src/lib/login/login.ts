@@ -22,7 +22,6 @@ export class Login implements OnInit {
   isLoading = false;
   isSuccess = false;
   isSignUpPopUpOpen = false;
-  // statusMessage = '';
 
   get userName() {
     return this.loginForm.get('username');
@@ -51,31 +50,6 @@ export class Login implements OnInit {
     });
   }
 
-  // async onClick() {
-  //   const user = this.userName?.value ?? '';
-  //   const pass = this.password?.value ?? '';
-  //   if (user !== '' && pass !== '') {
-  //     this.statusMessage = null;
-  //     this.authService.login({
-  //       email: user,
-  //       password: pass,
-  //     }).subscribe({
-  //       next: async () => {
-  //         await this.router.navigate(['home']);
-  //         this.loginSuccess.emit(this.authService.isLoggedIn());
-  //         this.cdr.markForCheck();
-  //       },
-  //       error: (error) => {
-  //         this.setMessages({ erroMsg: error.error.msg ?? 'Server Error' });
-  //         this.cdr.markForCheck();
-  //       },
-  //     })
-
-  //   } else {
-  //     this.setMessages({ erroMsg: 'Please fill User name & Password' });
-  //   }
-  // }
-
   closeSingInPopUp() {
     this.isSignUpPopUpOpen = false;
   }
@@ -83,22 +57,6 @@ export class Login implements OnInit {
   onClickSignUp() {
     this.isSignUpPopUpOpen = true;
   }
-
-  // private setMessages({
-  //   erroMsg,
-  //   successMsg,
-  // }: {
-  //   erroMsg?: string;
-  //   successMsg?: string;
-  // }) {
-  //   if (erroMsg) {
-  //     this.statusMessage = erroMsg;
-  //   } else if (successMsg) {
-  //     this.statusMessage = successMsg;
-  //   } else if (!erroMsg && !successMsg) {
-  //     this.statusMessage = '';
-  //   }
-  // }
 
   onLoginSubmit() {
     if (this.loginForm.invalid) {
