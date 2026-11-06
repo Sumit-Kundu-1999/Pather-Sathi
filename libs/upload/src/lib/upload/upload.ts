@@ -95,7 +95,8 @@ export class UploadComponent {
         this.resetForm();
       },
       error: (err) => {
-        this.authService.logoutDueToInvalidToken(err.error.mesage);
+        console.log("Upload error ",err);
+        this.authService.logoutDueToInvalidToken(err.error.message);
         this.errorMessage = 'Failed to upload image. Please try again.';
         this.isUploading.set(false);
         // this.isUploading = false;

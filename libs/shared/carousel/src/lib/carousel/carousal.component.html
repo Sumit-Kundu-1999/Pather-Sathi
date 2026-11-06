@@ -1,0 +1,44 @@
+<div id="specialCareCarousel" class="carousel slide carousel-fade shadow-lg rounded-4 overflow-hidden"
+  data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div *ngFor="let slide of carouselService.slides(); let i = index" class="carousel-item" [class.active]="i === 0">
+
+      <!-- Responsive Image -->
+      <img [src]="slide.path" class="d-block w-100 responsive-carousel-img" alt="slide.altText">
+
+      <!-- Smooth Dark Gradient Overlay for Seamless Text Blending -->
+      <div class="seamless-gradient-overlay"></div>
+
+      <!-- Seamless Text Integrated Directly Over the Image -->
+      <div class="carousel-caption seamless-caption">
+        <h2 class="fw-bold mb-4 text-white cinematic-text">Disease - {{ slide.diseaseName }}</h2>
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-start mt-4">
+
+          <button (click)="goToDetail(slide._id)" class="btn btn-light btn-lg rounded-pill fw-bold shadow-lg px-4">
+            View Details <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+
+          <!-- Removed the inline margin-left style -->
+          <a href="tel:{{ slide.phoneNumber }}" class="btn btn-success btn-lg rounded-pill fw-bold shadow-lg px-4">
+            <i class="bi bi-telephone-fill me-2"></i> {{ slide.phoneNumber }}
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="carouselService.slides().length === 0" class="text-center p-5 bg-light">
+      <div class="spinner-border text-success" role="status"></div>
+      <p class="mt-3 text-muted">Loading initiatives...</p>
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#specialCareCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#specialCareCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

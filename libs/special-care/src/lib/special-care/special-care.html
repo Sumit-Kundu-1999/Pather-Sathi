@@ -1,0 +1,59 @@
+<section class="detail-section py-5 bg-light min-vh-100">
+    <div class="container py-4">
+
+        <!-- Back Button -->
+        <a routerLink="/" class="btn btn-outline-secondary mb-4 rounded-pill">
+            <i class="bi bi-arrow-left"></i> Back to Home
+        </a>
+
+        @if (isLoading()) {
+        <div class="text-center py-5">
+            <div class="spinner-border text-success" role="status"></div>
+            <p class="mt-2 text-muted">Loading details...</p>
+        </div>
+        }
+
+        @if (slideData(); as data) {
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="row g-0">
+
+                <!-- Left Side: Image -->
+                <div class="col-lg-6">
+                    <img [src]="data.path" class="img-fluid w-100 h-100 object-fit-cover" style="min-height: 400px;"
+                        alt="Special Care Detail">
+                </div>
+
+                <!-- Right Side: Content -->
+                <div class="col-lg-6 p-4 p-md-5 d-flex flex-column justify-content-center bg-white">
+
+                    <div class="mb-2">
+                        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fs-6 fw-bold shadow-sm">
+                            <i class="bi bi-heart-pulse-fill text-danger me-1"></i> {{ data.diseaseName }}
+                        </span>
+                    </div>
+
+                    <h2 class="fw-bold text-success mt-3 mb-4">Special Care Initiative</h2>
+
+                    <div class="description-container mb-5">
+                        <p class="text-secondary fs-5 lh-lg mb-0" style="text-align: justify;">
+                            {{ data.description }}
+                        </p>
+                    </div>
+
+                    <div class="mt-auto p-4 bg-light rounded-4 border-start border-4 border-success">
+                        <h5 class="fw-bold text-dark mb-3">Want to help or know more?</h5>
+                        <p class="text-muted mb-3">Reach out to our team directly to discuss support, donations, or
+                            volunteering for this initiative.</p>
+
+                        <a href="tel:{{ data.phoneNumber }}"
+                            class="btn btn-success btn-lg rounded-pill shadow-sm w-100 w-md-auto">
+                            <i class="bi bi-telephone-fill me-2"></i> {{ data.phoneNumber }}
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</section>

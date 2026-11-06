@@ -38,19 +38,6 @@ const imageSchema = new mongoose.Schema({
 
 const Image = mongoose.model('Image', imageSchema);
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         const dir = 'uploads/';
-//         if (!fs.existsSync(dir)) {
-//             fs.mkdirSync(dir, { recursive: true });
-//         }
-//         cb(null, 'uploads/');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + '-' + file.originalname);
-//     }
-// })
-
 const upload = multer({ storage })
 
 router.post('/upload', authenticateToken, upload.array('images', 50), async (req, res) => {

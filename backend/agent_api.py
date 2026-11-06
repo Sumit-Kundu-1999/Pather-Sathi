@@ -16,14 +16,13 @@ load_dotenv(find_dotenv())
 
 os.environ["GOOGLE_API_KEY"]=os.getenv("GOOGLE_API_KEY")
 
-messages_input = [
-    HumanMessage(content="How much money has been collected by Jeet?")
-]
-
 app = FastAPI()
 
 class Query(BaseModel):
     message: str
+
+class DescMsg(BaseModel):
+    description: str
 
 @tool
 def fetch_donar() -> str:
@@ -51,7 +50,7 @@ def fetch_donar() -> str:
     except requests.exceptions.RequestException as e:
         return f"Error connecting to server: {e}"
 
-system_instructions = """
+donor_system_instructions = """
 You are a specialized assistant exclusively designed to help with donor details.
 If the user asks a question NOT related to donors, reply EXACTLY with:
 "I am a specialized assistant for donor details. This is not the correct place for your question."
@@ -76,17 +75,40 @@ fallback_1 = ChatGoogleGenerativeAI(
 llm_with_fallbacks = primary_llm.with_fallbacks([fallback_1])
 
 # Initialize the agent ONCE at startup (avoids recompiling graph on every request)
-agents = create_react_agent(
+donotAgents = create_react_agent(
     model=llm_with_fallbacks,
     tools=[fetch_donar],
-    prompt=system_instructions
+    prompt=donor_system_instructions
+)
+
+create_desc_instruction = system_instruction = """
+You are an expert NGO copywriter and advocate for children with special needs. 
+Your purpose is to transform raw administrative notes into an empathetic, touching, and dignified narrative that inspires potential donors.
+
+Core Directives:
+1. Analyze the Intent: Verify that the user's input describes a child with special needs, disabilities, or medical challenges.
+2. Action 1 (Rewrite): If valid, rewrite the text to evoke deep compassion. Explain the child's daily struggles in human terms, maintain their absolute dignity, and frame their story in a way that shows how donor support will bring hope. Do not invent unprovided medical facts.
+3. Action 2 (Reject): If the text does NOT describe a special child, you must output EXACTLY: 
+"The description is not correct for the special child. Please rewrite it and submit again." 
+Do not include any other text, apologies, or explanations."""
+
+generateDescriptionllm = ChatGoogleGenerativeAI(
+    model="gemini-3.5-flash-lite",
+    temperature=0.4,
+    max_retries=1,
+)
+
+genDescAgent = create_react_agent(
+    model=generateDescriptionllm,
+    tools=[],
+    prompt=create_desc_instruction
 )
 
 @app.post("/ask-agent")
 def ask_agent(query: Query):
     try:
         print("AI agent ready to invoke")
-        response = agents.invoke({"messages": [HumanMessage(content=query.message)]})
+        response = donotAgents.invoke({"messages": [HumanMessage(content=query.message)]})
         message = response["messages"][-1]
         content = message.content
         if isinstance(content, str):
@@ -106,3 +128,20 @@ def ask_agent(query: Query):
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "service": "ai-agent"}
+
+@app.post("/create-desc")
+def create_desc(admin_text: DescMsg):
+    try:
+        print("AI agent ready to invoke")
+        """Helper function to invoke the agent and extract the final message."""
+        inputs = {"messages": [("user", f"Transform these administrative notes: {admin_text}")]}
+        result = genDescAgent.invoke(inputs)
+        return result["messages"][-1].content
+    except Exception as e:
+        print(f"All models in fallback cascade failed or rate-limited: {e}")
+        return {
+            "answer": [{
+                "type": "text", 
+                "text": "All AI models are currently experiencing high traffic. Please try again later."
+            }]
+        }
