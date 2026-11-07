@@ -15,7 +15,7 @@ export class SpecialCare implements OnInit {
   private route = inject(ActivatedRoute);
   private routeSub!: Subscription;
 
-  @Input() id!: string;
+  currentLang = signal<'EN' | 'BN'>('EN');
   slideData = signal<CareSlide | null>(null);
   isLoading = signal<boolean>(true);
 
