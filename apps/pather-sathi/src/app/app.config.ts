@@ -4,7 +4,7 @@ import {
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideStore, Store } from '@ngrx/store'
 import { authActions, authFeature, } from '@pather-sathi/auth-store'
@@ -12,7 +12,14 @@ import { authActions, authFeature, } from '@pather-sathi/auth-store'
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(), 
-    provideRouter(appRoutes),
+    provideRouter(appRoutes,
+      withInMemoryScrolling(
+        {
+          scrollPositionRestoration: 'enabled',
+          anchorScrolling: 'enabled'
+        }
+      )
+    ),
     provideStore({
       [authFeature.name]: authFeature.reducer,
     }),
