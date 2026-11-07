@@ -1,7 +1,6 @@
 <section class="detail-section py-5 bg-light min-vh-100">
     <div class="container py-4">
 
-        <!-- Back Button -->
         <a routerLink="/" class="btn btn-outline-secondary mb-4 rounded-pill">
             <i class="bi bi-arrow-left"></i> Back to Home
         </a>
@@ -32,11 +31,24 @@
                         </span>
                     </div>
 
-                    <h2 class="fw-bold text-success mt-3 mb-4">Special Care Initiative</h2>
+                    <!-- HEADER WITH LANGUAGE TOGGLE -->
+                    <div class="d-flex justify-content-between align-items-center mt-3 mb-4 flex-wrap gap-3">
+                        <h2 class="fw-bold text-success mb-0">Special Care Initiative</h2>
 
+                        <div class="btn-group shadow-sm" role="group">
+                            <button type="button" class="btn" [class.btn-success]="currentLang() === 'EN'"
+                                [class.btn-outline-success]="currentLang() !== 'EN'"
+                                (click)="currentLang.set('EN')">English</button>
+                            <button type="button" class="btn" [class.btn-success]="currentLang() === 'BN'"
+                                [class.btn-outline-success]="currentLang() !== 'BN'"
+                                (click)="currentLang.set('BN')">বাংলা</button>
+                        </div>
+                    </div>
+
+                    <!-- DYNAMIC SCROLLABLE DESCRIPTION -->
                     <div class="description-container mb-5">
                         <p class="text-secondary fs-5 lh-lg mb-0" style="text-align: justify;">
-                            {{ data.description }}
+                            {{ currentLang() === 'EN' ? data.descriptionEn : data.descriptionBn }}
                         </p>
                     </div>
 
@@ -45,10 +57,10 @@
                         <p class="text-muted mb-3">Reach out to our team directly to discuss support, donations, or
                             volunteering for this initiative.</p>
 
-                        <a href="tel:{{ data.phoneNumber }}"
-                            class="btn btn-success btn-lg rounded-pill shadow-sm w-100 w-md-auto">
-                            <i class="bi bi-telephone-fill me-2"></i> {{ data.phoneNumber }}
-                        </a>
+                            <a href="tel:{{ data.phoneNumber }}"
+                                class="btn btn-success btn-lg rounded-pill fw-bold shadow-lg px-4">
+                                <i class="bi bi-telephone-fill me-2"></i> {{ data.phoneNumber }}
+                            </a>
                     </div>
 
                 </div>

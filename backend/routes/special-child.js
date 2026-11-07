@@ -32,7 +32,8 @@ const specialChildSchema = new mongoose.Schema({
     contentType: { type: String, requied: true },
     diseaseName: { type: String, requied: true },
     fileName: { type: String, requied: true },
-    description: { type: String, requied: true },
+    descriptionEn: { type: String, required: true },
+    descriptionBn: { type: String, required: true },
     phoneNumber: { type: String, requied: true },
     image: { type: String, requied: true },
     path: { type: String, requied: true },
@@ -60,32 +61,44 @@ router.post('/upload', authenticateToken, upload.array('image', 50), async (req,
             });
 
             const data = await pythonResponse.json();
-            const awswer = data[0].text;
-            if (awswer === 'All AI models are currently experiencing high traffic. Please try again later.') {
+            let rawText = data[0].text;
+            rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+            
+            const parsedResponse = JSON.parse(rawText);
+            const awswerEng = parsedResponse.english;
+            const answerBen = parsedResponse.bengali;
+            
+            if (awswerEng === 'All AI models are currently experiencing high traffic. Please try again later.') {
                 return res.status(400).json({ message: awswer });
             }
 
-            if (awswer === 'The description is not correct for the special child. Please rewrite it and submit again.') {
+            if (awswerEng === 'The description is not correct for the special child. Please rewrite it and submit again.') {
                 return res.status(400).json({ message: awswer });
             }
-
-            const imagePromises = req.files.map(file => {
-                const newImage = new SpecialChild({
-                    altText: 'Special Child Photo',
-                    contentType: file.mimetype,
-                    fileName: file.filename,
-                    path: file.path,
-                    description: awswer,
-                    diseaseName: req.body.diseaseName,
-                    phoneNumber: req.body.phoneNumber
-                });
-                return newImage.save();
-            })
-            await Promise.all(imagePromises);
-
-            res.status(201).json({
-                message: 'Image Uploads successfull'
-            })
+            if(awswerEng && answerBen) {
+                const imagePromises = req.files.map(file => {
+                    const newImage = new SpecialChild({
+                        altText: 'Special Child Photo',
+                        contentType: file.mimetype,
+                        fileName: file.filename,
+                        path: file.path,
+                        descriptionEn: awswerEng,
+                        descriptionBn: answerBen,
+                        diseaseName: req.body.diseaseName,
+                        phoneNumber: req.body.phoneNumber
+                    });
+                    return newImage.save();
+                })
+                await Promise.all(imagePromises);
+    
+                res.status(201).json({
+                    message: 'Image Uploads successfull'
+                })
+            } else {
+                return res.status(400).json({
+                    message: 'Bengali & English descriptions are not generated properly.'
+                })
+            }
         }
         return res.status(400).json({
             message: 'Please write the description'

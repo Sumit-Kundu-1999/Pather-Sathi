@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CareSlide, CarouselService, UploadCareSlide } from '@pather-sathi/carousel';
 import { AuthService } from '@pather-sathi/auth';
@@ -23,6 +23,7 @@ export class SpecialChild {
   });
   successMessage = '';
   errorMessage = ''
+  isSubmitting = signal<boolean>(false);
 
   selectedFile: File | null = null;
   fileError: string = '';
@@ -44,6 +45,9 @@ export class SpecialChild {
 
   async onSubmit() {
     if (this.slideForm.valid && this.selectedFile) {
+      this.isSubmitting.set(true);
+      this.errorMessage = '';
+      this.successMessage = '';
       // Use FormData because we are sending a physical file, not a JSON string
       const formData = new FormData();
       formData.append('image', this.selectedFile);
@@ -53,14 +57,14 @@ export class SpecialChild {
 
       this.carouselService.addSlide(formData).subscribe({
         next: (data) => {
-          this.errorMessage = '';
+          this.isSubmitting.set(false);
           this.slideForm.reset();
           this.selectedFile = null;
           this.successMessage = data.message;
           this.cdr.markForCheck();
         },
         error: (err) => {
-          this.successMessage = '';
+          this.isSubmitting.set(false);
           console.log("Error on Special Child Form Submission ", err);
           this.authService.logoutDueToInvalidToken(err.error.message);
           this.errorMessage = err.error.message

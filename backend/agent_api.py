@@ -87,10 +87,18 @@ Your purpose is to transform raw administrative notes into an empathetic, touchi
 
 Core Directives:
 1. Analyze the Intent: Verify that the user's input describes a child with special needs, disabilities, or medical challenges.
-2. Action 1 (Rewrite): If valid, rewrite the text to evoke deep compassion. Explain the child's daily struggles in human terms, maintain their absolute dignity, and frame their story in a way that shows how donor support will bring hope. Do not invent unprovided medical facts.
+2. Action 1 (Rewrite & Translate): If valid, rewrite the text to evoke deep compassion. Explain the child's daily struggles in human terms, 
+maintain their absolute dignity, and frame their story in a way that shows how donor support will bring hope. 
+   You MUST output the final narrative in BOTH English and Bengali.
+   Format your response EXACTLY as a valid JSON object like this:
+   {
+     "english": "Your empathetic English description here...",
+     "bengali": "আপনার সহানুভূতিশীল বাংলা বর্ণনা এখানে..."
+   }
 3. Action 2 (Reject): If the text does NOT describe a special child, you must output EXACTLY: 
 "The description is not correct for the special child. Please rewrite it and submit again." 
-Do not include any other text, apologies, or explanations."""
+Do not include any other text, apologies, or explanations.
+"""
 
 generateDescriptionllm = ChatGoogleGenerativeAI(
     model="gemini-3.5-flash-lite",

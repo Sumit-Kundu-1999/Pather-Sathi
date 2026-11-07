@@ -8,7 +8,8 @@ export interface CareSlide {
   altText: string;
   contentType: string;
   diseaseName: string;
-  description: string;
+  descriptionEn: string;
+  descriptionBn: string;
   fileName: string;
   path: string,
   phoneNumber: string;
