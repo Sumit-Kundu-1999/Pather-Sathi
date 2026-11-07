@@ -31,9 +31,9 @@ export class SpecialChild {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      // 2 MB in bytes = 2 * 1024 * 1024 = 2097152
-      if (file.size > 2097152) {
-        this.fileError = 'File size exceeds the 2MB limit. Please choose a smaller image.';
+      // 2 MB in bytes = 5 * 1024 * 1024 = 5242880
+      if (file.size > 5242880) {
+        this.fileError = 'File size exceeds the 5MB limit. Please choose a smaller image.';
         this.selectedFile = null;
         event.target.value = ''; // Clear the input
       } else {
