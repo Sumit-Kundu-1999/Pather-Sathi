@@ -3,8 +3,11 @@
   <div class="carousel-inner">
     <div *ngFor="let slide of carouselService.slides(); let i = index" class="carousel-item" [class.active]="i === 0">
 
-      <!-- Responsive Child Photo Background -->
-      <img [src]="slide.path" class="d-block w-100 responsive-carousel-img" [alt]="slide.altText || 'Special Child Photo'">
+      <!-- Ambient Blurred Backdrop for Desktop: Fills Wide Screen Naturally Without Zooming Child Photo -->
+      <div class="carousel-ambient-blur" [style.background-image]="'url(' + slide.path + ')'"></div>
+
+      <!-- Responsive Child Photo Background: Clear, Centered & Properly Scaled -->
+      <img [src]="slide.path" class="responsive-carousel-img" [alt]="slide.altText || 'Special Child Photo'">
 
       <!-- Subtle Soft Gradient Overlay: Keeps Child Photo Clearly Visible While Providing Text Contrast -->
       <div class="subtle-photo-overlay"></div>
