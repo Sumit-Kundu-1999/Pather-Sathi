@@ -22,7 +22,7 @@ export class PaymentGateway {
   readonly ngoMerchantName = 'Pather Sathi';
 
   readonly currentStep = signal<1 | 2 | 3>(1);
-  readonly selectedAmount = signal<number>(500);
+  readonly selectedAmount = signal<number>(1000);
   readonly copied = signal<boolean>(false);
   readonly isVerifying = signal<boolean>(false);
   readonly receiptId = signal<string>(Math.floor(100000 + Math.random() * 900000).toString());
@@ -38,8 +38,8 @@ export class PaymentGateway {
 
   donationTiers: DonationTier[] = [
     { amount: 250, label: 'Child Dress', impact: 'Provides a fresh set of clothes for a child', icon: '👚' },
-    { amount: 500, label: 'Child Dress & Kit', impact: 'Dress, grooming & essential kits for a child', icon: '🎒', popular: true },
-    { amount: 1000, label: 'Help 2 Children', impact: 'Complete dress & essential kits for 2 children', icon: '✨' },
+    { amount: 500, label: 'Child Dress & Kit', impact: 'Dress, grooming & essential kits for a child', icon: '🎒' },
+    { amount: 1000, label: 'Help 2 Children', impact: 'Complete dress & essential kits for 2 children', icon: '✨', popular: true },
     { amount: 2500, label: 'Support 5 Children', impact: 'Full clothing, makeup & care kits for 5 children', icon: '🎁' },
   ];
 
@@ -175,7 +175,7 @@ export class PaymentGateway {
       pincode: ''
     });
     this.utrNumber = '';
-    this.selectedAmount.set(500);
+    this.selectedAmount.set(1000);
     this.currentStep.set(1);
   }
 
