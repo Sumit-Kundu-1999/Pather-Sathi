@@ -28,6 +28,7 @@ export class PaymentGateway {
   readonly receiptId = signal<string>(Math.floor(100000 + Math.random() * 900000).toString());
 
   utrNumber = '';
+  isConfirmBtnDisabled = signal<boolean>(true);
   todayDate = new Date().toLocaleDateString('en-IN', { 
     day: 'numeric', 
     month: 'short', 
@@ -103,6 +104,12 @@ export class PaymentGateway {
     const upiPayload = encodeURIComponent(this.upiPayUrl());
     return `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${upiPayload}&margin=8`;
   });
+
+  onUtrNumberChange(inputValue: string) {
+    if(inputValue.length > 2) {
+      this.isConfirmBtnDisabled.set(false);
+    }
+  }
 
   upiIntentUrl(targetApp: 'gpay' | 'phonepe' | 'paytm' | 'generic'): string {
     const baseUpi = this.upiPayUrl();
